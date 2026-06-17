@@ -58,21 +58,18 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="relative group"
           >
-            <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden border border-[#222] bg-[#0D0D0D]">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#050505] via-transparent to-transparent z-10" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-32 h-32 rounded-full bg-[#111] border border-[#222] flex items-center justify-center">
-                  <span className="text-4xl text-[#333] terminal-text">
-                    &gt;
-                  </span>
-                </div>
-              </div>
+            <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden border border-[#222] bg-[#0A0A0A]">
+              <img
+                src="/research-plant.png"
+                alt="Shubranshu Shekhar"
+                className="absolute inset-0 w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:contrast-125 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10" />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                 <p className="terminal-text text-xs text-[#666]">
-                  {/*  */}$ image --shubranshu
+                  $ image --shubranshu
                 </p>
               </div>
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-700" />
             </div>
           </motion.div>
         </div>
