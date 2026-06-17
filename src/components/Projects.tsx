@@ -7,6 +7,23 @@ import { cn } from "@/lib/utils";
 
 const projects = [
   {
+    id: "codewithshub",
+    title: "CodeWithShub",
+    subtitle: "DSA Learning OS",
+    url: "https://codewithshub-frontend.vercel.app/",
+    highlights: [
+      "DSA Tracking",
+      "Revision Scheduler",
+      "1-3-7-17-30-60-90 Rule",
+      "Streaks System",
+      "Progress Analytics",
+      "Smart Revision",
+    ],
+    accent: "border-white/20",
+    command: "$ open codewithshub --focus",
+    special: true,
+  },
+  {
     id: "threat-detection",
     title: "URL Threat Detection",
     subtitle: "AI + Blockchain Security",
@@ -54,23 +71,6 @@ const projects = [
     accent: "border-white/10",
     command: "$ open cookmate",
     special: false,
-  },
-  {
-    id: "codewithshub",
-    title: "CodeWithShub",
-    subtitle: "DSA Learning OS",
-    url: "https://codewithshub-frontend.vercel.app/",
-    highlights: [
-      "DSA Tracking",
-      "Revision Scheduler",
-      "1-3-7-17-30-60-90 Rule",
-      "Streaks System",
-      "Progress Analytics",
-      "Smart Revision",
-    ],
-    accent: "border-white/20",
-    command: "$ open codewithshub --focus",
-    special: true,
   },
 ];
 
