@@ -49,7 +49,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
   }, [progress, onComplete]);
 
   return (
-    <motion.div
+    <div
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]">
         <div className="w-full max-w-lg px-8">
           <motion.p
@@ -121,6 +121,6 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
             </motion.div>
           )}
         </div>
-    </motion.div>
+    </div>
   );
 }
