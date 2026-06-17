@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
-import VoxelScene from "./VoxelScene";
+import ResearchScene from "./ResearchScene";
 
 export default function Research() {
   const [hovered, setHovered] = useState(false);
@@ -84,63 +84,8 @@ export default function Research() {
             </div>
 
             <div className="relative min-h-[300px] lg:min-h-full bg-gradient-to-br from-[#111] to-[#0D0D0D] overflow-hidden">
-              {/* Scanner frame */}
-              <div className="absolute inset-0 pointer-events-none z-20">
-                {/* Corner brackets */}
-                <div className="absolute top-3 left-3 w-4 h-px bg-white/20" />
-                <div className="absolute top-3 left-3 w-px h-4 bg-white/20" />
-                <div className="absolute top-3 right-3 w-4 h-px bg-white/20" />
-                <div className="absolute top-3 right-3 w-px h-4 bg-white/20" />
-                <div className="absolute bottom-3 left-3 w-4 h-px bg-white/20" />
-                <div className="absolute bottom-3 left-3 w-px h-4 bg-white/20" />
-                <div className="absolute bottom-3 right-3 w-4 h-px bg-white/20" />
-                <div className="absolute bottom-3 right-3 w-px h-4 bg-white/20" />
-
-                {/* Frame border lines */}
-                <div className="absolute top-[18px] left-3 right-3 h-px bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
-                <div className="absolute bottom-[18px] left-3 right-3 h-px bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
-                <div className="absolute left-[18px] top-3 bottom-3 w-px bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
-                <div className="absolute right-[18px] top-3 bottom-3 w-px bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
-              </div>
-
-              {/* Voxel scene */}
               <div className="absolute inset-0 z-10">
-                <VoxelScene hovered={hovered} />
-              </div>
-
-              {/* HUD overlay */}
-              <div className="absolute top-4 left-10 z-20 space-y-0.5">
-                <p className="text-[8px] terminal-text text-white/40 tracking-wider">
-                  research.lab/plant_health
-                </p>
-                <motion.p
-                  animate={{ opacity: hovered ? [0.4, 0.8, 0.4] : 0.5 }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="text-[8px] terminal-text text-green-500/50 tracking-wider"
-                >
-                  status: monitoring
-                </motion.p>
-              </div>
-
-              <div className="absolute bottom-10 left-10 z-20 space-y-0.5">
-                <p className="text-[8px] terminal-text text-white/30">
-                  accuracy: 99.37%
-                </p>
-                <p className="text-[8px] terminal-text text-white/20">
-                  environment: controlled
-                </p>
-              </div>
-
-              {/* Blinking status indicator */}
-              <div className="absolute bottom-4 right-10 z-20 flex items-center gap-2">
-                <motion.div
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="w-1 h-1 rounded-full bg-green-500/60"
-                />
-                <span className="text-[8px] terminal-text text-white/30">
-                  system.active
-                </span>
+                <ResearchScene hovered={hovered} />
               </div>
             </div>
           </div>
