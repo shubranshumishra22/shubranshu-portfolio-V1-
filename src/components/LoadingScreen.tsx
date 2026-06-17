@@ -11,10 +11,11 @@ const bootModules = [
   { name: "Contact" },
 ];
 
-export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+export default function LoadingScreen({ onComplete }: { onComplete?: () => void }) {
   const [progress, setProgress] = useState(0);
   const [showPrompt, setShowPrompt] = useState(false);
   const doneRef = useRef(false);
+  const readyRef = useRef(false);
 
   const visibleCount = Math.min(
     Math.floor((progress / 100) * bootModules.length),
@@ -39,14 +40,20 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       doneRef.current = true;
       const t1 = setTimeout(() => setShowPrompt(true), 500);
       const t2 = setTimeout(() => {
-        setTimeout(onComplete, 800);
+        readyRef.current = true;
+        if (onComplete) onComplete();
       }, 2500);
       return () => {
         clearTimeout(t1);
         clearTimeout(t2);
       };
     }
-  }, [progress, onComplete]);
+  }, [progress]);
+
+  // If onComplete becomes available after we're already at "ENTER SYSTEM"
+  useEffect(() => {
+    if (readyRef.current && onComplete) onComplete();
+  }, [onComplete]);
 
   return (
     <div
