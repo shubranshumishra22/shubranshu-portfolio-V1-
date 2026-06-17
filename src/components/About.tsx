@@ -30,7 +30,7 @@ const aboutLines = [
   { content: "cinematography.", type: "output" as const },
   { content: "", type: "system" as const },
   {
-    content: "Location: India",
+    content: "Location: Bengaluru, India",
     type: "system" as const,
   },
   {
