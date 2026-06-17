@@ -1,9 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import VoxelScene from "./VoxelScene";
 
 export default function Research() {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <section
       id="research"
@@ -17,7 +21,9 @@ export default function Research() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative rounded-2xl border border-[#222] bg-[#0D0D0D] overflow-hidden group"
+          className="relative rounded-2xl border border-[#222] bg-[#0D0D0D] overflow-hidden"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
           <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -78,28 +84,63 @@ export default function Research() {
             </div>
 
             <div className="relative min-h-[300px] lg:min-h-full bg-gradient-to-br from-[#111] to-[#0D0D0D] overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-40 h-40 md:w-56 md:h-56">
-                  <div className="absolute inset-0 border border-[#333] rounded-full animate-[spin_10s_linear_infinite]" />
-                  <div className="absolute inset-4 border border-[#222] rounded-full animate-[spin_8s_linear_infinite_reverse]" />
-                  <div className="absolute inset-8 border border-white/5 rounded-full" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[10px] terminal-text text-[#444] text-center leading-relaxed">
-                      RESEARCH
-                      <br />
-                      LAB
-                    </span>
-                  </div>
-                </div>
+              {/* Scanner frame */}
+              <div className="absolute inset-0 pointer-events-none z-20">
+                {/* Corner brackets */}
+                <div className="absolute top-3 left-3 w-4 h-px bg-white/20" />
+                <div className="absolute top-3 left-3 w-px h-4 bg-white/20" />
+                <div className="absolute top-3 right-3 w-4 h-px bg-white/20" />
+                <div className="absolute top-3 right-3 w-px h-4 bg-white/20" />
+                <div className="absolute bottom-3 left-3 w-4 h-px bg-white/20" />
+                <div className="absolute bottom-3 left-3 w-px h-4 bg-white/20" />
+                <div className="absolute bottom-3 right-3 w-4 h-px bg-white/20" />
+                <div className="absolute bottom-3 right-3 w-px h-4 bg-white/20" />
+
+                {/* Frame border lines */}
+                <div className="absolute top-[18px] left-3 right-3 h-px bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
+                <div className="absolute bottom-[18px] left-3 right-3 h-px bg-gradient-to-r from-transparent via-white/[0.03] to-transparent" />
+                <div className="absolute left-[18px] top-3 bottom-3 w-px bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
+                <div className="absolute right-[18px] top-3 bottom-3 w-px bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-green-500/60" />
-                  <span className="text-[10px] terminal-text text-[#555]">
-                    system.active — v1.0
-                  </span>
-                </div>
+              {/* Voxel scene */}
+              <div className="absolute inset-0 z-10">
+                <VoxelScene hovered={hovered} />
+              </div>
+
+              {/* HUD overlay */}
+              <div className="absolute top-4 left-10 z-20 space-y-0.5">
+                <p className="text-[8px] terminal-text text-white/40 tracking-wider">
+                  research.lab/plant_health
+                </p>
+                <motion.p
+                  animate={{ opacity: hovered ? [0.4, 0.8, 0.4] : 0.5 }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="text-[8px] terminal-text text-green-500/50 tracking-wider"
+                >
+                  status: monitoring
+                </motion.p>
+              </div>
+
+              <div className="absolute bottom-10 left-10 z-20 space-y-0.5">
+                <p className="text-[8px] terminal-text text-white/30">
+                  accuracy: 99.37%
+                </p>
+                <p className="text-[8px] terminal-text text-white/20">
+                  environment: controlled
+                </p>
+              </div>
+
+              {/* Blinking status indicator */}
+              <div className="absolute bottom-4 right-10 z-20 flex items-center gap-2">
+                <motion.div
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="w-1 h-1 rounded-full bg-green-500/60"
+                />
+                <span className="text-[8px] terminal-text text-white/30">
+                  system.active
+                </span>
               </div>
             </div>
           </div>
