@@ -54,7 +54,17 @@ export default function Research() {
                 ))}
               </div>
 
-              <div className="flex gap-3 flex-wrap">
+              <a
+                href="https://link.springer.com/chapter/10.1007/978-981-96-8796-1_49"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#222] bg-[#111] text-white/80 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all duration-300 terminal-text text-xs"
+              >
+                <span className="text-[#666]">$</span>
+                <span>open springer-publication</span>
+              </a>
+
+              <div className="flex gap-3 flex-wrap mt-6">
                 <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[#222] text-[#666]">
                   Springer LNNS
                 </span>
@@ -67,22 +77,13 @@ export default function Research() {
               </div>
             </div>
 
-            <div className="relative min-h-[300px] lg:min-h-full bg-gradient-to-br from-[#111] to-[#0D0D0D] overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-40 h-40 md:w-56 md:h-56">
-                  <div className="absolute inset-0 border border-[#333] rounded-full animate-[spin_10s_linear_infinite]" />
-                  <div className="absolute inset-4 border border-[#222] rounded-full animate-[spin_8s_linear_infinite_reverse]" />
-                  <div className="absolute inset-8 border border-white/5 rounded-full" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[10px] terminal-text text-[#444] text-center leading-relaxed">
-                      RESEARCH
-                      <br />
-                      LAB
-                    </span>
-                  </div>
-                </div>
-              </div>
-
+            <div className="relative min-h-[300px] lg:min-h-full bg-[#0A0A0A] overflow-hidden">
+              <img
+                src="/research-plant.png"
+                alt="Robotic Plant Health Monitoring System"
+                className="absolute inset-0 w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:contrast-125 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/30 pointer-events-none" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="flex items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-green-500/60" />
