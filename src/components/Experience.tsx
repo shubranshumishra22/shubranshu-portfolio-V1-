@@ -4,10 +4,7 @@ import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 
 const experiences = [
-  { year: "2026", title: "Software Engineer", description: "Building products at scale" },
-  { year: "2025", title: "Springer Publication", description: "Robotic Plant Health Monitoring" },
-  { year: "2025", title: "AI Security Systems", description: "Threat Detection & Blockchain" },
-  { year: "2024", title: "Full Stack Development", description: "React, Node.js, PostgreSQL" },
+  { year: "Jul 2026 – Present", title: "GET at LTM", description: "Graduate Engineer Trainee" },
 ];
 
 export default function Experience() {
