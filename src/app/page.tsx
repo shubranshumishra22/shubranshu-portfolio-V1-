@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import OSGatewayAnimation from "@/components/OSGatewayAnimation";
 import LoadingScreen from "@/components/LoadingScreen";
 import ASCIIBackground from "@/components/ASCIIBackground";
 import Navbar from "@/components/Navbar";
@@ -17,68 +15,39 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
-  const [phase, setPhase] = useState<"gate" | "loading" | "ready">(() => {
+  const [loading, setLoading] = useState(() => {
     if (typeof window !== "undefined" && localStorage.getItem("shubranshu_visited")) {
-      return "ready";
+      return false;
     }
-    return "gate";
+    return true;
   });
 
-  const handleGateComplete = () => {
+  const handleComplete = () => {
     localStorage.setItem("shubranshu_visited", "true");
-    setPhase("loading");
+    setLoading(false);
   };
 
   return (
-    <AnimatePresence mode="wait">
-      {phase === "gate" && (
-        <motion.div
-          key="gate"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <OSGatewayAnimation onComplete={handleGateComplete} />
-        </motion.div>
-      )}
+    <>
+      {loading && <LoadingScreen onComplete={handleComplete} />}
 
-      {phase === "loading" && (
-        <motion.div
-          key="loading"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <LoadingScreen onComplete={() => setPhase("ready")} />
-        </motion.div>
-      )}
+      <div className="relative">
+        <ASCIIBackground />
+        <Navbar />
 
-      {phase === "ready" && (
-        <motion.div
-          key="ready"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <div className="relative">
-            <ASCIIBackground />
-            <Navbar />
+        <main className="relative z-10">
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Research />
+          <Achievements />
+          <Experience />
+          <Contact />
+        </main>
 
-            <main className="relative z-10">
-              <Hero />
-              <About />
-              <Skills />
-              <Projects />
-              <Research />
-              <Achievements />
-              <Experience />
-              <Contact />
-            </main>
-
-            <Footer />
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        <Footer />
+      </div>
+    </>
   );
 }
