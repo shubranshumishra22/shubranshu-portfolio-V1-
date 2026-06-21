@@ -19,14 +19,27 @@
   --font-sans: "General Sans", "Satoshi", -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+[data-theme="light"] {
+  --color-bg: #FAFAFA;
+  --color-surface: #F0F0F0;
+  --color-card: #E8E8E8;
+  --color-border: #D4D4D4;
+  --color-primary: #111111;
+  --color-secondary: #555555;
+  --color-muted: #888888;
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #222 #050505;
 }
 
+[data-theme="light"] * {
+  scrollbar-color: #D4D4D4 #FAFAFA;
+}
+
 body {
-  background: #050505;
-  color: #FFFFFF;
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-sans);
   overflow-x: hidden;
 }
@@ -36,34 +49,14 @@ body {
   color: #050505;
 }
 
+[data-theme="light"] ::selection {
+  background: #111111;
+  color: #FAFAFA;
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
-}
-
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes progress {
-  from { width: 0%; }
-  to { width: 100%; }
-}
-
-@keyframes bootUp {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
 }
 
 .cursor-blink {

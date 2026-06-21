@@ -47,11 +47,11 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="rounded-xl border border-[#222] bg-[#0D0D0D] p-6 md:p-8"
+              className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8"
             >
-              <div className="flex items-center gap-3 mb-5 pb-4 border-b border-[#222]">
-                <span className="text-[#666] terminal-text text-xs">├──</span>
-                <h3 className="text-white font-semibold text-base tracking-tight">
+              <div className="flex items-center gap-3 mb-5 pb-4 border-b border-[var(--color-border)]">
+                <span className="text-[var(--color-muted)] terminal-text text-xs">├──</span>
+                <h3 className="text-[var(--color-primary)] font-semibold text-base tracking-tight">
                   {category.name}
                 </h3>
               </div>
@@ -65,10 +65,10 @@ export default function Skills() {
                     transition={{ delay: idx * 0.1 + i * 0.05, duration: 0.3 }}
                     className="flex items-center gap-3 group"
                   >
-                    <span className="text-[#444] terminal-text text-xs">
+                    <span className="text-[var(--color-muted)] terminal-text text-xs">
                       ├──
                     </span>
-                    <span className="text-[#A1A1A1] group-hover:text-white transition-colors duration-300 text-sm">
+                    <span className="text-[var(--color-secondary)] group-hover:text-[var(--color-primary)] transition-colors duration-300 text-sm">
                       {skill}
                     </span>
                   </motion.div>

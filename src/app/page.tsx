@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { ThemeProvider } from "@/lib/theme";
 import LaptopEntry from "@/components/LaptopEntry";
 import LoadingScreen from "@/components/LoadingScreen";
-import ASCIIBackground from "@/components/ASCIIBackground";
+import AntigravityParticles from "@/components/AntigravityParticles";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -30,27 +31,29 @@ export default function Home() {
       {!ready && <LoadingScreen />}
 
       {ready && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="relative">
-            <ASCIIBackground />
-            <Navbar />
-            <main className="relative z-10">
-              <Hero />
-              <About />
-              <Skills />
-              <Projects />
-              <Research />
-              <Achievements />
-              <Experience />
-              <Contact />
-            </main>
-            <Footer />
-          </div>
-        </motion.div>
+        <ThemeProvider>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="relative" style={{ background: "var(--color-bg)" }}>
+              <AntigravityParticles />
+              <Navbar />
+              <main className="relative z-10">
+                <Hero />
+                <About />
+                <Skills />
+                <Projects />
+                <Research />
+                <Achievements />
+                <Experience />
+                <Contact />
+              </main>
+              <Footer />
+            </div>
+          </motion.div>
+        </ThemeProvider>
       )}
     </>
   );

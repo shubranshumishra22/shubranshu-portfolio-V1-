@@ -21,7 +21,7 @@ export default function Research() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative rounded-2xl border border-[#222] bg-[#0D0D0D] overflow-hidden"
+          className="relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
@@ -29,13 +29,13 @@ export default function Research() {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="p-8 md:p-12 relative z-10">
               <div className="flex items-center gap-2 mb-6">
-                <span className="text-[#666] terminal-text text-xs">$</span>
-                <span className="text-white terminal-text text-xs">
+                <span className="text-[var(--color-muted)] terminal-text text-xs">$</span>
+                <span className="text-[var(--color-primary)] terminal-text text-xs">
 {" "}cat research/plant-health.txt
                 </span>
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-4">
+              <h3 className="text-2xl md:text-3xl font-bold text-[var(--color-primary)] tracking-tight mb-4">
                 Robotic Plant Health<br />Monitoring System
               </h3>
 
@@ -55,7 +55,7 @@ export default function Research() {
                     className="flex items-center gap-3"
                   >
                     <span className="w-1 h-1 rounded-full bg-white/40 flex-shrink-0" />
-                    <span className="text-[#A1A1A1] text-sm">{item}</span>
+                    <span className="text-[var(--color-secondary)] text-sm">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -64,20 +64,20 @@ export default function Research() {
                 href="https://link.springer.com/chapter/10.1007/978-981-96-8796-1_49"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#222] bg-[#111] text-white/80 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all duration-300 terminal-text text-xs"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-primary)] opacity-80 hover:opacity-100 hover:border-white/30 hover:bg-white/5 transition-all duration-300 terminal-text text-xs"
               >
-                <span className="text-[#666]">$</span>
+                <span className="text-[var(--color-muted)]">$</span>
                 <span>open springer-publication</span>
               </a>
 
               <div className="flex gap-3 flex-wrap mt-6">
-                <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[#222] text-[#666]">
+                <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]">
                   Springer LNNS
                 </span>
-                <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[#222] text-[#666]">
+                <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]">
                   ICTIS 2025
                 </span>
-                <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[#222] text-[#666]">
+                <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]">
                   CNN
                 </span>
               </div>

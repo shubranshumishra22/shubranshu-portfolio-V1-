@@ -43,19 +43,19 @@ export default function Achievements() {
               transition={{ delay: idx * 0.15, duration: 0.5 }}
               className="relative group"
             >
-              <div className="rounded-xl border border-[#222] bg-[#0D0D0D] p-6 md:p-8 overflow-hidden">
+              <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10 flex items-start gap-4 md:gap-6">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg border border-[#222] bg-[#111] flex items-center justify-center">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] flex items-center justify-center">
                     <span className="text-[10px] terminal-text text-green-500/80 font-bold">
                       [{achievement.status}]
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-white font-semibold text-base md:text-lg tracking-tight mb-1">
+                    <h3 className="text-[var(--color-primary)] font-semibold text-base md:text-lg tracking-tight mb-1">
                       {achievement.title}
                     </h3>
-                    <p className="text-[#A1A1A1] text-sm">{achievement.detail}</p>
+                    <p className="text-[var(--color-secondary)] text-sm">{achievement.detail}</p>
                   </div>
                   <span className="text-lg flex-shrink-0 opacity-40 group-hover:opacity-100 transition-opacity duration-300">
                     {achievement.icon}

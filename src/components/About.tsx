@@ -58,7 +58,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="relative group"
           >
-            <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden border border-[#222] bg-[#0A0A0A]">
+            <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-card)]">
               <img
                 src="/research-plant.png"
                 alt="Shubranshu Shekhar"
@@ -66,7 +66,7 @@ export default function About() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10" />
               <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                <p className="terminal-text text-xs text-[#666]">
+                <p className="terminal-text text-xs text-[var(--color-muted)]">
                   $ image --shubranshu
                 </p>
               </div>

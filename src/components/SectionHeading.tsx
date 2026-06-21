@@ -19,8 +19,8 @@ export default function SectionHeading({ command, title, className }: SectionHea
         transition={{ duration: 0.4 }}
         className="flex items-center gap-3 mb-4"
       >
-        <span className="text-[#666] terminal-text text-xs sm:text-sm">$</span>
-        <span className="text-white terminal-text text-xs sm:text-sm">{command}</span>
+        <span className="text-[var(--color-muted)] terminal-text text-xs sm:text-sm">$</span>
+        <span className="text-[var(--color-primary)] terminal-text text-xs sm:text-sm">{command}</span>
       </motion.div>
       {title && (
         <motion.h2
@@ -28,7 +28,7 @@ export default function SectionHeading({ command, title, className }: SectionHea
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[var(--color-primary)]"
         >
           {title}
         </motion.h2>

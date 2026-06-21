@@ -41,14 +41,14 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border border-[#222] bg-[#0D0D0D] p-8 md:p-12 max-w-2xl"
+          className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8 md:p-12 max-w-2xl"
         >
           <div className="flex items-center gap-2 mb-8">
-            <span className="text-[#666] terminal-text text-xs">
+            <span className="text-[var(--color-muted)] terminal-text text-xs">
               visitor@shubranshu
             </span>
-            <span className="text-white terminal-text text-xs">:~$</span>
-            <span className="text-white terminal-text text-xs">connect</span>
+            <span className="text-[var(--color-primary)] terminal-text text-xs">:~$</span>
+            <span className="text-[var(--color-primary)] terminal-text text-xs">connect</span>
           </div>
 
           <div className="space-y-3">
@@ -61,7 +61,7 @@ export default function Contact() {
                 transition={{ delay: idx * 0.1, duration: 0.3 }}
                 className="group"
               >
-                <div className="flex items-center justify-between p-4 rounded-xl border border-[#222] bg-[#111] hover:border-white/20 transition-all duration-300">
+                <div className="flex items-center justify-between p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] hover:border-white/20 transition-all duration-300">
                   <a
                     href={link.url}
                     target={link.url.startsWith("http") ? "_blank" : undefined}
@@ -72,16 +72,16 @@ export default function Contact() {
                     }
                     className="flex items-center gap-3 flex-1"
                   >
-                    <span className="text-[#444] terminal-text text-sm">
+                    <span className="text-[var(--color-muted)] terminal-text text-sm">
                       {link.icon}
                     </span>
-                    <span className="text-white text-sm font-medium">
+                    <span className="text-[var(--color-primary)] text-sm font-medium">
                       {link.label}
                     </span>
                   </a>
                   <button
                     onClick={() => handleCopy(link.label, link.url)}
-                    className="text-[10px] terminal-text text-[#666] hover:text-white transition-colors duration-200 px-2 py-1 rounded hover:bg-white/5"
+                    className="text-[10px] terminal-text text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors duration-200 px-2 py-1 rounded hover:bg-white/5"
                   >
                     {copied === link.label ? "✓ Copied" : "[copy]"}
                   </button>
@@ -95,9 +95,9 @@ export default function Contact() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.4 }}
-            className="mt-8 pt-6 border-t border-[#222]"
+            className="mt-8 pt-6 border-t border-[var(--color-border)]"
           >
-            <p className="text-[#666] terminal-text text-xs">
+            <p className="text-[var(--color-muted)] terminal-text text-xs">
               {/*  */}
               $ Connection established. Ready to build something great.
               <span className="inline-block w-2 h-4 bg-white ml-1 cursor-blink align-middle" />

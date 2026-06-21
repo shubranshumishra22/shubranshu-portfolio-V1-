@@ -29,19 +29,19 @@ export default function Experience() {
                 transition={{ delay: idx * 0.1, duration: 0.4 }}
                 className="relative pl-12 md:pl-14"
               >
-                <div className="absolute left-[9px] md:left-[13px] top-1 w-3 h-3 rounded-full bg-[#111] border border-[#444] group-hover:border-white/40 transition-colors" />
+                <div className="absolute left-[9px] md:left-[13px] top-1 w-3 h-3 rounded-full bg-[var(--color-card)] border border-[#444] group-hover:border-white/40 transition-colors" />
 
-                <div className="rounded-xl border border-[#222] bg-[#0D0D0D] p-5 md:p-6 group hover:border-white/10 transition-all duration-300">
+                <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 md:p-6 group hover:border-white/10 transition-all duration-300">
                   <div className="flex items-center gap-4 mb-2">
-                    <span className="text-xs terminal-text text-[#666] font-medium">
+                    <span className="text-xs terminal-text text-[var(--color-muted)] font-medium">
                       {exp.year}
                     </span>
                     <span className="h-px flex-1 bg-[#222]" />
                   </div>
-                  <h3 className="text-white font-semibold text-base md:text-lg tracking-tight">
+                  <h3 className="text-[var(--color-primary)] font-semibold text-base md:text-lg tracking-tight">
                     {exp.title}
                   </h3>
-                  <p className="text-[#A1A1A1] text-sm mt-1">{exp.description}</p>
+                  <p className="text-[var(--color-secondary)] text-sm mt-1">{exp.description}</p>
                 </div>
               </motion.div>
             ))}

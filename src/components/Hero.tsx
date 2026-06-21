@@ -34,7 +34,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 4.0 }}
-            className="text-[#666] terminal-text text-xs sm:text-sm tracking-widest uppercase"
+            className="text-[var(--color-muted)] terminal-text text-xs sm:text-sm tracking-widest uppercase"
           >
             Shubranshu.OS — v1.0
           </motion.p>
@@ -51,7 +51,7 @@ export default function Hero() {
                     ease: [0.25, 0.1, 0, 1],
                   }}
                 >
-                  <h1 className="text-[clamp(2.5rem,8vw,6.5rem)] font-bold leading-[0.9] tracking-[-0.03em] text-white">
+                  <h1 className="text-[clamp(2.5rem,8vw,6.5rem)] font-bold leading-[0.9] tracking-[-0.03em] text-[var(--color-primary)]">
                     {word}
                   </h1>
                 </motion.div>
@@ -62,7 +62,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 5.0 }}
-            className="text-[#A1A1A1] text-sm sm:text-base max-w-md leading-relaxed pt-4"
+            className="text-[var(--color-secondary)] text-sm sm:text-base max-w-md leading-relaxed pt-4"
           >
             Building software, intelligent systems, and products that solve real
             problems.
@@ -74,7 +74,7 @@ export default function Hero() {
             className="flex items-center gap-3 pt-2"
           >
             <span className="w-2 h-2 rounded-full bg-green-500/80 animate-pulse" />
-            <span className="text-xs text-[#666] terminal-text">
+            <span className="text-xs text-[var(--color-muted)] terminal-text">
               Available for opportunities
             </span>
           </motion.div>

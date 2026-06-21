@@ -109,17 +109,17 @@ export default function Projects() {
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
               className={cn(
-                "relative rounded-2xl border bg-[#0D0D0D] backdrop-blur-sm flex-shrink-0 group block transition-all duration-500",
+                "relative rounded-2xl border bg-[var(--color-surface)] backdrop-blur-sm flex-shrink-0 group block transition-all duration-500",
                 project.accent,
                 hoveredId === project.id ? "border-white/30" : "",
                 project.special ? "w-[480px] md:w-[580px]" : "w-[360px] md:w-[440px]"
               )}
             >
-              <div className="flex items-center gap-1.5 px-5 py-3.5 border-b border-[#222]">
+              <div className="flex items-center gap-1.5 px-5 py-3.5 border-b border-[var(--color-border)]">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#666]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#444]" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#333]" />
-                <span className="ml-3 text-[10px] text-[#555] terminal-text">
+                <span className="ml-3 text-[10px] text-[var(--color-muted)] terminal-text">
                   {project.id}
                 </span>
               </div>
@@ -127,15 +127,15 @@ export default function Projects() {
               <div className="p-6 md:p-8">
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-1">
+                    <h3 className="text-xl md:text-2xl font-bold text-[var(--color-primary)] tracking-tight mb-1">
                       {project.title}
                     </h3>
-                    <p className="text-xs text-[#666] terminal-text">
+                    <p className="text-xs text-[var(--color-muted)] terminal-text">
                       {project.subtitle}
                     </p>
                   </div>
                   {project.special && (
-                    <span className="text-[10px] terminal-text text-white/60 border border-white/10 rounded-full px-3 py-1 flex-shrink-0">
+                    <span className="text-[10px] terminal-text text-[var(--color-primary)] opacity-60 border border-white/10 rounded-full px-3 py-1 flex-shrink-0">
                       ★ Featured
                     </span>
                   )}
@@ -151,10 +151,10 @@ export default function Projects() {
                       transition={{ delay: i * 0.04, duration: 0.3 }}
                       className="flex items-center gap-2.5"
                     >
-                      <span className="text-[#444] terminal-text text-[10px]">
+                      <span className="text-[var(--color-muted)] terminal-text text-[10px]">
                         ◆
                       </span>
-                      <span className="text-[#A1A1A1] text-sm">{h}</span>
+                      <span className="text-[var(--color-secondary)] text-sm">{h}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -164,11 +164,11 @@ export default function Projects() {
                     "inline-flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-300",
                     hoveredId === project.id
                       ? "border-white/30 bg-white/5"
-                      : "border-[#222] bg-transparent"
+                      : "border-[var(--color-border)] bg-transparent"
                   )}
                 >
-                  <span className="text-[#666] terminal-text text-xs">$</span>
-                  <span className="text-white terminal-text text-xs">
+                  <span className="text-[var(--color-muted)] terminal-text text-xs">$</span>
+                  <span className="text-[var(--color-primary)] terminal-text text-xs">
                     {project.command}
                   </span>
                 </div>
