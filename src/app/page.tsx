@@ -16,6 +16,7 @@ import Achievements from "@/components/Achievements";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import FeaturedProject from "@/components/FeaturedProject";
 
 export default function Home() {
   const [ready, setReady] = useState(false);
@@ -42,12 +43,13 @@ export default function Home() {
               <Navbar />
               <main className="relative z-10">
                 <Hero />
+                <FeaturedProject />
                 <About />
-                <Skills />
+                <Experience />
                 <Projects />
                 <Research />
+                <Skills />
                 <Achievements />
-                <Experience />
                 <Contact />
               </main>
               <Footer />
