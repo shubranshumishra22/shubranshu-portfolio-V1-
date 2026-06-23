@@ -22,10 +22,7 @@ export default function FeaturedProject() {
         </span>
         <span className="text-[var(--color-muted)] text-[11px] font-mono">→</span>
         <span className="text-[var(--color-secondary)] text-xs font-medium">
-          Nudge Commerce AI
-        </span>
-        <span className="text-[var(--color-muted)] text-[10px] font-mono hidden sm:inline">
-          — AI-Powered Storefront SaaS
+          Build your website using NudgeAI
         </span>
         <span className="w-1.5 h-1.5 rounded-full bg-green-500/70 animate-pulse ml-0.5" />
       </a>
