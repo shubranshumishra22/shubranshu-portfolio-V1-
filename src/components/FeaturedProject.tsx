@@ -11,7 +11,7 @@ export default function FeaturedProject() {
       className="flex justify-center px-6 pb-8"
     >
       <a
-        href="https://codewithshub-frontend.vercel.app/"
+        href="https://nudgeai-nine.vercel.app/"
         target="_blank"
         rel="noopener noreferrer"
         className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-card)] transition-all duration-300"
@@ -22,10 +22,10 @@ export default function FeaturedProject() {
         </span>
         <span className="text-[var(--color-muted)] text-[11px] font-mono">→</span>
         <span className="text-[var(--color-secondary)] text-xs font-medium">
-          CodeWithShub
+          Nudge Commerce AI
         </span>
         <span className="text-[var(--color-muted)] text-[10px] font-mono hidden sm:inline">
-          — DSA Learning OS
+          — AI-Powered Storefront SaaS
         </span>
         <span className="w-1.5 h-1.5 rounded-full bg-green-500/70 animate-pulse ml-0.5" />
       </a>

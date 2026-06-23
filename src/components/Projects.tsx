@@ -7,6 +7,24 @@ import { cn } from "@/lib/utils";
 
 const projects = [
   {
+    id: "nudge-commerce-ai",
+    title: "Nudge Commerce AI",
+    subtitle: "Full-Stack SaaS Platform for AI-Powered Storefronts",
+    url: "https://nudgeai-nine.vercel.app/",
+    repo: "https://github.com/shubranshumishra22",
+    highlights: [
+      "Multi-Tenant Routing Engine & Custom Domains",
+      "Self-Healing LLM Fallback Pipeline",
+      "Next.js ISR & On-demand Revalidation",
+      "Supabase PostgreSQL Constraints & RLS",
+      "Interactive Split Editor & Live Preview",
+      "Razorpay Subscription & Checkout flows",
+    ],
+    command: "$ open nudge-commerce-ai --focus",
+    tags: ["Next.js", "Supabase", "OpenRouter", "Razorpay", "Tailwind CSS"],
+    special: true,
+  },
+  {
     id: "codewithshub",
     title: "CodeWithShub",
     subtitle: "DSA Learning OS",
@@ -22,7 +40,7 @@ const projects = [
     ],
     command: "$ open codewithshub --focus",
     tags: ["React", "Next.js", "TypeScript", "PostgreSQL"],
-    special: true,
+    special: false,
   },
   {
     id: "threat-detection",
