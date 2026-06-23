@@ -27,54 +27,58 @@ export default function Navbar() {
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, delay: 3.5, ease: "easeOut" }}
+    <div
       className={cn(
-        "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500",
-        scrolled ? "w-[80%] md:w-[55%]" : "w-[90%] md:w-[70%]"
+        "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 transform",
+        "w-max max-w-[95vw]"
       )}
     >
-      <div
-        className={cn(
-          "w-full rounded-full backdrop-blur-xl transition-all duration-500",
-          scrolled
-            ? "bg-[var(--color-surface)]/70 border border-[var(--color-border)]/50 py-2.5"
-            : "bg-[var(--color-surface)]/40 border border-[var(--color-border)]/30 py-3"
-        )}
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, delay: 3.5, ease: "easeOut" }}
+        className="w-full"
       >
-        <div className="flex items-center justify-center gap-1 px-4">
-          <span
-            className={cn(
-              "text-[var(--color-muted)] terminal-text transition-all duration-500 mr-2",
-              scrolled ? "text-[10px]" : "text-xs"
-            )}
-          >
-            $
-          </span>
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
+        <div
+          className={cn(
+            "w-full rounded-full backdrop-blur-xl transition-all duration-500",
+            scrolled
+              ? "bg-[var(--color-surface)]/70 border border-[var(--color-border)]/50 py-2.5"
+              : "bg-[var(--color-surface)]/40 border border-[var(--color-border)]/30 py-3"
+          )}
+        >
+          <div className="flex items-center justify-center gap-1 px-4">
+            <span
               className={cn(
-                "relative px-2.5 py-1 text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-all duration-300 rounded-full hover:bg-[var(--color-border)]/30",
-                "terminal-text tracking-tight",
-                scrolled ? "text-[11px]" : "text-xs"
+                "text-[var(--color-muted)] terminal-text transition-all duration-500 mr-2",
+                scrolled ? "text-[10px]" : "text-xs"
               )}
             >
-              {item.label.toLowerCase()}
-            </a>
-          ))}
-          <button
-            onClick={toggle}
-            className="ml-2 px-2.5 py-1 text-xs terminal-text text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? "☀" : "☾"}
-          </button>
+              $
+            </span>
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className={cn(
+                  "relative px-2.5 py-1 text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-all duration-300 rounded-full hover:bg-[var(--color-border)]/30",
+                  "terminal-text tracking-tight",
+                  scrolled ? "text-[11px]" : "text-xs"
+                )}
+              >
+                {item.label.toLowerCase()}
+              </a>
+            ))}
+            <button
+              onClick={toggle}
+              className="ml-2 px-2.5 py-1 text-xs terminal-text text-[var(--color-muted)] hover:text-[var(--color-primary)] transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? "☀" : "☾"}
+            </button>
+          </div>
         </div>
-      </div>
-    </motion.nav>
+      </motion.nav>
+    </div>
   );
 }
