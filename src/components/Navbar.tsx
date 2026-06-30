@@ -15,40 +15,53 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
+      const vh = window.innerHeight || 800;
+      setVisible(window.scrollY > vh - 100);
+      setHovered(false); // Shrink when scroll occurs
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <motion.nav
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onMouseMove={() => {
+        if (!hovered) setHovered(true);
+      }}
       initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, delay: 3.5, ease: "easeOut" }}
+      animate={{ 
+        y: visible ? 0 : -20, 
+        opacity: visible ? 1 : 0 
+      }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500",
-        scrolled ? "w-[80%] md:w-[55%]" : "w-[90%] md:w-[70%]"
+        "fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-[width] duration-500 ease-in-out",
+        visible ? "pointer-events-auto" : "pointer-events-none",
+        hovered ? "w-[90%] md:w-[70%]" : "w-[80%] md:w-[55%]"
       )}
     >
       <div
         className={cn(
-          "w-full rounded-full backdrop-blur-xl transition-all duration-500",
-          scrolled
-            ? "bg-[var(--color-surface)]/70 border border-[var(--color-border)]/50 py-2.5"
-            : "bg-[var(--color-surface)]/40 border border-[var(--color-border)]/30 py-3"
+          "w-full rounded-full backdrop-blur-xl transition-[padding,background-color,border-color] duration-500 ease-in-out",
+          hovered
+            ? "bg-[var(--color-surface)]/40 border border-[var(--color-border)]/30 py-3"
+            : "bg-[var(--color-surface)]/70 border border-[var(--color-border)]/50 py-2.5"
         )}
       >
         <div className="flex items-center justify-center gap-1 px-4">
           <span
             className={cn(
               "text-[var(--color-muted)] terminal-text transition-all duration-500 mr-2",
-              scrolled ? "text-[10px]" : "text-xs"
+              hovered ? "text-xs" : "text-[10px]"
             )}
           >
             $
@@ -60,7 +73,7 @@ export default function Navbar() {
               className={cn(
                 "relative px-2.5 py-1 text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-all duration-300 rounded-full hover:bg-[var(--color-border)]/30",
                 "terminal-text tracking-tight",
-                scrolled ? "text-[11px]" : "text-xs"
+                hovered ? "text-xs" : "text-[11px]"
               )}
             >
               {item.label.toLowerCase()}

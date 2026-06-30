@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { ThemeProvider } from "@/lib/theme";
 import { ReactLenis } from "lenis/react";
-import LaptopEntry from "@/components/LaptopEntry";
-import LoadingScreen from "@/components/LoadingScreen";
 import AntigravityParticles from "@/components/AntigravityParticles";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -16,50 +13,34 @@ import Research from "@/components/Research";
 import Achievements from "@/components/Achievements";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import FeaturedProject from "@/components/FeaturedProject";
 
 export default function Home() {
-  const [ready, setReady] = useState(false);
-
   return (
-    <>
-      {!ready && (
-        <div className="fixed inset-0 z-[300]">
-          <LaptopEntry onComplete={() => setReady(true)} />
-        </div>
-      )}
-
-      {!ready && <LoadingScreen />}
-
-      {ready && (
-        <ThemeProvider>
-          <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true }}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="relative" style={{ background: "var(--color-bg)" }}>
-                <AntigravityParticles />
-                <Navbar />
-                <main className="relative z-10">
-                  <Hero />
-                  <FeaturedProject />
-                  <About />
-                  <Experience />
-                  <Projects />
-                  <Research />
-                  <Skills />
-                  <Achievements />
-                  <Contact />
-                </main>
-                <Footer />
-              </div>
-            </motion.div>
-          </ReactLenis>
-        </ThemeProvider>
-      )}
-    </>
+    <ThemeProvider>
+      <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="relative animate-fadeIn" style={{ background: "var(--color-bg)" }}>
+            <AntigravityParticles />
+            <Navbar />
+            <main className="relative z-10">
+              <Hero />
+              <About />
+              <Experience />
+              <Projects />
+              <Research />
+              <Skills />
+              <Achievements />
+              <Contact />
+            </main>
+            {/* Sentinel element to trigger the scroll-lock matrix loop */}
+            <div id="page-bottom-sentinel" className="w-full h-2 pointer-events-none" />
+          </div>
+        </motion.div>
+      </ReactLenis>
+    </ThemeProvider>
   );
 }
