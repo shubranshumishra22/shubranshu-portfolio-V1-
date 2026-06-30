@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shubranshu Shekhar - Personal Portfolio (V1)
 
-## Getting Started
+Welcome to the repository for my personal developer portfolio website. This is a highly interactive, responsive, and modern portfolio built using **Next.js**, **Framer Motion**, and **TypeScript**, showcasing a unique terminal/OS-like design theme.
 
-First, run the development server:
+## 🚀 Live Demo
+Check out the live website: [shubranshushekhar.com](https://github.com/shubranshumishra22/shubranshu-portfolio-V1-) (or the deployed version connected to this repository).
 
+## 🛠️ Tech Stack & Libraries
+- **Framework:** [Next.js](https://nextjs.org/) (App Router, TypeScript)
+- **Styling:** CSS variables & Tailwind CSS
+- **Animations:** [Framer Motion](https://www.framer.com/motion/) for micro-interactions, page transitions, and terminal simulation.
+- **Icons:** React Icons / Lucide React
+
+## 💻 Features
+- **whoami Terminal Simulation:** Interactive, animated terminal typing output.
+- **Interactive Sections:**
+  - **About:** Personal introduction, skills matrix, and interest categories.
+  - **Experience:** Interactive resume timeline.
+  - **Projects:** Showcase of key engineering, AI, and software products.
+  - **Research & Publications:** Grid of academic research, papers, and findings.
+  - **Achievements & Extracurriculars:** Highlighting athletic feats and cinematography interests.
+- **Highly Responsive Layouts:** Optimized for all screen sizes, from mobile to desktop screens.
+
+## 🧑‍💻 Getting Started
+
+First, install the dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Second, run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🏗️ Production Build
 
-## Learn More
+To build the project for production, run:
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+To run the built bundle locally:
+```bash
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
