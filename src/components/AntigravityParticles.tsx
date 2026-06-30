@@ -23,7 +23,6 @@ uniform float uSizeScale;
 attribute float aSize;
 attribute vec3 aOffset;
 attribute float aNoiseSeed;
-attribute float aVelocity;
 
 varying float vAlpha;
 
@@ -75,8 +74,8 @@ void main() {
   pos.xy += normalize(delta) * influence * 60.0;
 
   vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  float vel = aVelocity + length(pos - position) * 0.05;
-  float size = (aSize + vel * 1.2) * uSizeScale;
+  float distFromOrigin = length(pos - position);
+  float size = (aSize + distFromOrigin * 0.15) * uSizeScale;
   gl_PointSize = size * (300.0 / -mvPosition.z);
 
   vAlpha = 0.6 + smoothstep(400.0, 0.0, dist) * 0.4 * uMouseInfluence;
@@ -106,7 +105,7 @@ void main() {
 }
 `;
 
-// ---- Particle simulation ----
+// ---- Particle data generation ----
 
 function createParticleData(count: number, width: number, height: number) {
   const aspect = width / height;
@@ -116,16 +115,12 @@ function createParticleData(count: number, width: number, height: number) {
   const offsets = new Float32Array(count * 3);
   const sizes = new Float32Array(count);
   const noiseSeeds = new Float32Array(count);
-  const velocities = new Float32Array(count);
-  const origins = new Float32Array(count * 3);
-  const currents = new Float32Array(count * 3);
-  const vels = new Float32Array(count * 2);
 
   for (let i = 0; i < count; i++) {
     const angle = Math.random() * Math.PI * 2;
     const dist = Math.pow(Math.random(), 0.6) * r;
     const x = Math.cos(angle) * dist;
-    const y = Math.sin(angle) * dist / aspect;
+    const y = (Math.sin(angle) * dist) / aspect;
 
     positions[i * 3] = x;
     positions[i * 3 + 1] = y;
@@ -137,26 +132,22 @@ function createParticleData(count: number, width: number, height: number) {
 
     sizes[i] = 1.0 + Math.random() * 4.0;
     noiseSeeds[i] = Math.random() * 500;
-    velocities[i] = 0;
-
-    origins[i * 3] = x;
-    origins[i * 3 + 1] = y;
-    origins[i * 3 + 2] = positions[i * 3 + 2];
-
-    currents[i * 3] = x;
-    currents[i * 3 + 1] = y;
-    currents[i * 3 + 2] = positions[i * 3 + 2];
-
-    vels[i * 2] = 0;
-    vels[i * 2 + 1] = 0;
   }
 
-  return { positions, offsets, sizes, noiseSeeds, velocities, origins, currents, vels };
+  return { positions, offsets, sizes, noiseSeeds };
 }
 
 // ---- R3F Particle Field ----
 
-function ParticleField({ mouse, mouseInfluence, dark }: { mouse: React.MutableRefObject<Vector2>; mouseInfluence: React.MutableRefObject<number>; dark: boolean }) {
+function ParticleField({
+  mouse,
+  mouseInfluence,
+  dark,
+}: {
+  mouse: React.MutableRefObject<Vector2>;
+  mouseInfluence: React.MutableRefObject<number>;
+  dark: boolean;
+}) {
   const meshRef = useRef<Points>(null);
   const { size } = useThree();
   const uniformsRef = useRef({
@@ -173,11 +164,6 @@ function ParticleField({ mouse, mouseInfluence, dark }: { mouse: React.MutableRe
 
   useEffect(() => {
     dataRef.current = createParticleData(count, size.width, size.height);
-    if (meshRef.current) {
-      const geo = meshRef.current.geometry;
-      geo.attributes.position.array.set(dataRef.current.positions);
-      geo.attributes.position.needsUpdate = true;
-    }
   }, [count, size.width, size.height]);
 
   const geometry = useMemo(() => {
@@ -187,9 +173,8 @@ function ParticleField({ mouse, mouseInfluence, dark }: { mouse: React.MutableRe
     geo.setAttribute("aOffset", new Float32BufferAttribute(data.offsets, 3));
     geo.setAttribute("aSize", new Float32BufferAttribute(data.sizes, 1));
     geo.setAttribute("aNoiseSeed", new Float32BufferAttribute(data.noiseSeeds, 1));
-    geo.setAttribute("aVelocity", new Float32BufferAttribute(data.velocities, 1));
     return geo;
-  }, []);
+  }, [count]);
 
   const material = useMemo(() => {
     uniformsRef.current.uColor.value = dark ? [1, 1, 1] : [0.08, 0.08, 0.08];
@@ -206,26 +191,22 @@ function ParticleField({ mouse, mouseInfluence, dark }: { mouse: React.MutableRe
 
   const targetMouse = useRef(new Vector2(9999, 9999));
 
-  const onPointerMove = useCallback((e: { clientX: number; clientY: number }) => {
-    const w = size.width;
-    const h = size.height;
-    targetMouse.current.set(
-      (e.clientX / w) * (w * 1.2) - w * 0.6,
-      -(e.clientY / h) * (h * 1.2) + h * 0.6,
-    );
-  }, [size.width, size.height]);
+  const onPointerMove = useCallback(
+    (e: { clientX: number; clientY: number }) => {
+      const w = size.width;
+      const h = size.height;
+      targetMouse.current.set(
+        (e.clientX / w) * (w * 1.2) - w * 0.6,
+        -(e.clientY / h) * (h * 1.2) + h * 0.6
+      );
+    },
+    [size.width, size.height]
+  );
 
   useEffect(() => {
     window.addEventListener("pointermove", onPointerMove);
     return () => window.removeEventListener("pointermove", onPointerMove);
   }, [onPointerMove]);
-
-  // Pre-compute noise table for performance
-  const noiseTable = useMemo(() => {
-    const t = new Float32Array(256);
-    for (let i = 0; i < 256; i++) t[i] = Math.sin(i * 0.1) * 0.5 + 0.5;
-    return t;
-  }, []);
 
   useFrame((_, delta) => {
     const dt = Math.min(delta, 0.05);
@@ -241,83 +222,9 @@ function ParticleField({ mouse, mouseInfluence, dark }: { mouse: React.MutableRe
     mouseInfluence.current += (active ? 1 : -1) * dt * 2;
     mouseInfluence.current = Math.max(0, Math.min(1, mouseInfluence.current));
     u.uMouseInfluence.value = mouseInfluence.current;
-
-    const data = dataRef.current;
-    const pos = geometry.attributes.position.array as Float32Array;
-    const velAttr = geometry.attributes.aVelocity.array as Float32Array;
-    const mx = mouse.current.x;
-    const my = mouse.current.y;
-
-    const returnStr = 0.003;
-    const damp = 0.95;
-    const cursorStr = 0.08;
-
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      const ox = data.origins[i3];
-      const oy = data.origins[i3 + 1];
-      const oz = data.origins[i3 + 2];
-
-      const cx = data.currents[i3];
-      const cy = data.currents[i3 + 1];
-      const cz = data.currents[i3 + 2];
-
-      // Return force
-      let fx = (ox - cx) * returnStr;
-      let fy = (oy - cy) * returnStr;
-      let fz = (oz - cz) * returnStr * 0.5;
-
-      // Noise force (pre-computed sine combinations)
-      const seed = data.noiseSeeds[i];
-      const t = u.uTime.value;
-      const nx = Math.sin(t * 0.4 + seed) * 0.15 + Math.sin(t * 0.7 + seed * 1.3) * 0.1;
-      const ny = Math.cos(t * 0.5 + seed * 0.7) * 0.15 + Math.cos(t * 0.8 + seed * 2.1) * 0.1;
-      const nz = Math.sin(t * 0.3 + seed * 1.7) * 0.08;
-
-      fx += nx;
-      fy += ny;
-      fz += nz;
-
-      // Cursor force
-      const dx = cx - mx;
-      const dy = cy - my;
-      const cursorDist = Math.sqrt(dx * dx + dy * dy);
-      if (cursorDist < 400 && cursorDist > 0) {
-        const strength = 1 - cursorDist / 400;
-        const pull = strength * strength * cursorStr;
-        fx -= (dx / cursorDist) * pull;
-        fy -= (dy / cursorDist) * pull;
-      }
-
-      // Apply
-      data.vels[i * 2] += fx;
-      data.vels[i * 2 + 1] += fy;
-      data.vels[i * 2] *= damp;
-      data.vels[i * 2 + 1] *= damp;
-
-      data.currents[i3] += data.vels[i * 2];
-      data.currents[i3 + 1] += data.vels[i * 2 + 1];
-      data.currents[i3 + 2] += fz * 0.5;
-
-      pos[i3] = data.currents[i3];
-      pos[i3 + 1] = data.currents[i3 + 1];
-      pos[i3 + 2] = data.currents[i3 + 2];
-
-      // Velocity magnitude for size
-      const speed = Math.sqrt(
-        data.vels[i * 2] * data.vels[i * 2] +
-        data.vels[i * 2 + 1] * data.vels[i * 2 + 1],
-      );
-      velAttr[i] = speed;
-    }
-
-    geometry.attributes.position.needsUpdate = true;
-    geometry.attributes.aVelocity.needsUpdate = true;
   });
 
-  return (
-    <points ref={meshRef} geometry={geometry} material={material} />
-  );
+  return <points ref={meshRef} geometry={geometry} material={material} />;
 }
 
 // ---- Main Export ----
