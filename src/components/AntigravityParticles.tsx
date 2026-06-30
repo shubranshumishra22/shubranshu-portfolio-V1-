@@ -76,7 +76,7 @@ void main() {
   vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
   float distFromOrigin = length(pos - position);
   float size = (aSize + distFromOrigin * 0.15) * uSizeScale;
-  gl_PointSize = size * (300.0 / -mvPosition.z);
+  gl_PointSize = size * (150.0 / -mvPosition.z);
 
   vAlpha = 0.6 + smoothstep(400.0, 0.0, dist) * 0.4 * uMouseInfluence;
   float edgeFade = 1.0 - smoothstep(0.0, 300.0, length(pos.xy));
@@ -92,14 +92,14 @@ uniform vec3 uColor;
 varying float vAlpha;
 
 void main() {
-  vec2 center = gl_PointCoord - vec2(0.5);
-  float dist = length(center);
-  if (dist > 0.5) discard;
+  float borderX = min(gl_PointCoord.x, 1.0 - gl_PointCoord.x);
+  float borderY = min(gl_PointCoord.y, 1.0 - gl_PointCoord.y);
+  float minDist = min(borderX, borderY);
 
-  float alpha = 1.0 - smoothstep(0.0, 0.5, dist);
-  alpha *= alpha;
-  float glow = exp(-dist * 6.0);
-  float finalAlpha = (alpha * 0.8 + glow * 0.4) * vAlpha;
+  if (minDist < 0.02) discard;
+
+  float glow = smoothstep(0.0, 0.25, minDist);
+  float finalAlpha = (0.75 + glow * 0.25) * vAlpha * 0.65;
 
   gl_FragColor = vec4(uColor, finalAlpha);
 }
@@ -130,7 +130,7 @@ function createParticleData(count: number, width: number, height: number) {
     offsets[i * 3 + 1] = (Math.random() - 0.5) * 40;
     offsets[i * 3 + 2] = (Math.random() - 0.5) * 20;
 
-    sizes[i] = 1.0 + Math.random() * 4.0;
+    sizes[i] = 0.8 + Math.random() * 1.5;
     noiseSeeds[i] = Math.random() * 500;
   }
 
@@ -155,7 +155,7 @@ function ParticleField({
     uMouse: { value: new Vector2(9999, 9999) },
     uMouseInfluence: { value: 0 },
     uColor: { value: dark ? [1, 1, 1] : [0.08, 0.08, 0.08] },
-    uSizeScale: { value: dark ? 1 : 2.2 },
+    uSizeScale: { value: dark ? 0.6 : 0.95 },
   });
 
   const count = size.width < 768 ? 4000 : size.width < 1280 ? 7000 : 10000;

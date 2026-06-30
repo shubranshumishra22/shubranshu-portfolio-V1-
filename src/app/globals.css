@@ -38,6 +38,11 @@
   display: none;
 }
 
+html, body {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+}
+
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: var(--font-sans);
@@ -168,4 +173,11 @@ body {
   }
 }
 
+/* Custom Arcade Cat Cursor */
+html, body, * {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 16 16' fill='none' stroke='%237CFF8A' stroke-width='1'><path d='M2 5 L2 2 L5 2 L7 5 L9 5 L11 2 L14 2 L14 5 L15 6 L15 10 L14 11 L11 13 L5 13 L2 11 L1 10 L1 6 Z' fill='%23050505'/><rect x='4' y='7' width='1.5' height='1.5' fill='%237CFF8A' stroke='none'/><rect x='10.5' y='7' width='1.5' height='1.5' fill='%237CFF8A' stroke='none'/><path d='M7 9.5 L8 10.5 L9 9.5' stroke='%237CFF8A' fill='none'/><path d='M1 8 L3 8 M13 8 L15 8' stroke='%237CFF8A'/></svg>") 8 8, auto;
+}
 
+a, button, [role="button"], span.underline, .cursor-pointer, input, textarea {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 16 16' fill='none' stroke='%23FFFFFF' stroke-width='1'><path d='M2 5 L2 2 L5 2 L7 5 L9 5 L11 2 L14 2 L14 5 L15 6 L15 10 L14 11 L11 13 L5 13 L2 11 L1 10 L1 6 Z' fill='%230D0D0D'/><rect x='4' y='7' width='1.5' height='1.5' fill='%23FFFFFF' stroke='none'/><rect x='10.5' y='7' width='1.5' height='1.5' fill='%23FFFFFF' stroke='none'/><path d='M7 9.5 L8 10.5 L9 9.5' stroke='%23FFFFFF' fill='none'/><path d='M1 8 L3 8 M13 8 L15 8' stroke='%23FFFFFF'/></svg>") 8 8, pointer !important;
+}

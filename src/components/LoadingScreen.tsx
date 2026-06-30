@@ -2,132 +2,164 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 
-const bootModules = [
-  { name: "Projects" },
-  { name: "Research" },
-  { name: "Experience" },
-  { name: "Contact" },
-];
+interface LoadingScreenProps {
+  imageLoaded: boolean;
+  onComplete?: () => void;
+}
 
-export default function LoadingScreen({ onComplete }: { onComplete?: () => void }) {
+export default function LoadingScreen({ imageLoaded, onComplete }: LoadingScreenProps) {
   const [progress, setProgress] = useState(0);
-  const [showPrompt, setShowPrompt] = useState(false);
   const doneRef = useRef(false);
-  const readyRef = useRef(false);
 
-  const visibleCount = Math.min(
-    Math.floor((progress / 100) * bootModules.length),
-    bootModules.length
-  );
+  // Mouse coordinate tracking
+  const mouseX = useRef(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
+  const mouseY = useRef(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
+
+  const [catStyle, setCatStyle] = useState<"center" | "cursor">("center");
+  const [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
+
+  // Cap visible progress at 99% until the background centerpiece image is fully loaded & cached
+  const displayProgress = Math.min(progress, imageLoaded ? 100 : 99);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.current = e.clientX;
+      mouseY.current = e.clientY;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   useEffect(() => {
     if (doneRef.current) return;
 
     const interval = setInterval(() => {
       setProgress((p) => {
-        const increment = Math.random() * 8 + 2;
+        const increment = Math.random() * 12 + 8; // Smooth progress updates
         return Math.min(p + increment, 100);
       });
-    }, 200);
+    }, 70);
 
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    if (progress >= 100 && !doneRef.current) {
+    // Complete only if the timer is at 100% AND the image is pre-loaded/cached
+    if (progress >= 100 && imageLoaded && !doneRef.current) {
       doneRef.current = true;
-      const t1 = setTimeout(() => setShowPrompt(true), 500);
-      const t2 = setTimeout(() => {
-        readyRef.current = true;
-        if (onComplete) onComplete();
-      }, 2500);
-      return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-      };
-    }
-  }, [progress]);
+      
+      // Calculate target position relative to viewport center
+      const viewportCenterX = window.innerWidth / 2;
+      const viewportCenterY = window.innerHeight / 2;
+      
+      setTargetPos({
+        x: mouseX.current - viewportCenterX,
+        y: mouseY.current - viewportCenterY,
+      });
+      setCatStyle("cursor");
 
-  // If onComplete becomes available after we're already at "ENTER SYSTEM"
-  useEffect(() => {
-    if (readyRef.current && onComplete) onComplete();
-  }, [onComplete]);
+      // Complete transition after the spring/slide animation finishes
+      const timer = setTimeout(() => {
+        if (onComplete) onComplete();
+      }, 750); // Matches the motion transition duration
+      return () => clearTimeout(timer);
+    }
+  }, [progress, imageLoaded, onComplete]);
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]">
-        <div className="w-full max-w-lg px-8">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-sm text-[#666] mb-6 terminal-text"
-          >
-            Initializing Shubranshu.OS...
-          </motion.p>
-
-          <div className="space-y-2 mb-8">
-            {bootModules.map((mod, idx) => (
-              <motion.div
-                key={mod.name}
-                initial={{ opacity: 0, x: -10 }}
-                animate={
-                  idx < visibleCount
-                    ? { opacity: 1, x: 0 }
-                    : { opacity: 0.3, x: -5 }
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ 
+        backgroundColor: catStyle === "center" ? "#050505" : "rgba(5, 5, 5, 0)" 
+      }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center select-none cursor-none"
+    >
+      <div className="flex flex-col items-center max-w-[280px] w-full text-center">
+        
+        {/* Retro-Styled Cat Face Vector drawing */}
+        <motion.div
+          animate={
+            catStyle === "center"
+              ? { y: [0, -3, 0], x: 0, scale: 1, opacity: 1 }
+              : { 
+                  x: targetPos.x, 
+                  y: targetPos.y, 
+                  scale: 0.16, 
+                  opacity: 0,
                 }
-                className="flex items-center gap-3 terminal-text text-sm"
-              >
-                <span
-                  className={cn(
-                    "text-xs",
-                    idx < visibleCount ? "text-white" : "text-[#333]"
-                  )}
-                >
-                  {idx < visibleCount ? "✓" : "○"}
-                </span>
-                <span
-                  className={cn(
-                    "transition-colors duration-300",
-                    idx < visibleCount ? "text-white" : "text-[#444]"
-                  )}
-                >
-                  Loading {mod.name}...
-                </span>
-              </motion.div>
-            ))}
-          </div>
+          }
+          transition={
+            catStyle === "center"
+              ? {
+                  y: { duration: 1.6, repeat: Infinity, ease: "easeInOut" },
+                  x: { duration: 0 },
+                  scale: { duration: 0.3 },
+                  opacity: { duration: 0.3 }
+                }
+              : {
+                  duration: 0.7,
+                  ease: [0.16, 1, 0.3, 1] // Smooth camera ease
+                }
+          }
+          className="mb-8 relative"
+          style={{ transformOrigin: "center" }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="80"
+            height="80"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="#7CFF8A"
+            strokeWidth="1"
+            strokeLinejoin="round"
+            className="filter drop-shadow-[0_0_12px_rgba(124,255,138,0.7)]"
+          >
+            {/* Glowing fill inside body */}
+            <path
+              d="M2 5 L2 2 L5 2 L7 5 L9 5 L11 2 L14 2 L14 5 L15 6 L15 10 L14 11 L11 13 L5 13 L2 11 L1 10 L1 6 Z"
+              fill="rgba(124, 255, 138, 0.08)"
+            />
+            {/* Eyes */}
+            <rect x="4" y="7" width="1.5" height="1.5" fill="#7CFF8A" stroke="none" />
+            <rect x="10.5" y="7" width="1.5" height="1.5" fill="#7CFF8A" stroke="none" />
+            {/* Mouth */}
+            <path d="M7 9.5 L8 10.5 L9 9.5" stroke="#7CFF8A" fill="none" />
+            {/* Whiskers */}
+            <path d="M1 8 L3 8 M13 8 L15 8" stroke="#7CFF8A" />
+          </svg>
+        </motion.div>
 
-          <div className="w-full h-[1px] bg-[#111] mb-2 relative overflow-hidden">
+        {/* Loading status bar */}
+        <motion.div 
+          animate={{ opacity: catStyle === "center" ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="w-full space-y-2"
+        >
+          <p className="text-[10px] text-[#7CFF8A] terminal-text tracking-widest font-bold opacity-80 animate-pulse">
+            LOADING MATRIX...
+          </p>
+
+          <div className="w-full h-[2px] bg-[#141414] relative overflow-hidden rounded-full">
             <motion.div
-              className="absolute left-0 top-0 h-full bg-white"
+              className="absolute left-0 top-0 h-full bg-[#7CFF8A]"
               initial={{ width: "0%" }}
-              animate={{ width: `${progress}%` }}
+              animate={{ width: `${displayProgress}%` }}
               transition={{ duration: 0.1 }}
+              style={{ boxShadow: "0 0 8px #7CFF8A" }}
             />
           </div>
 
-          <p className="text-xs text-[#444] terminal-text">{Math.floor(progress)}%</p>
+          <div className="flex justify-between items-center text-[9px] text-[#444] terminal-text">
+            <span>SYSBOOT_SEQUENCE</span>
+            <span>{Math.floor(displayProgress)}%</span>
+          </div>
+        </motion.div>
 
-          {showPrompt && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-8"
-            >
-              <p className="text-sm text-white terminal-text">
-                <span className="text-[#666]">visitor@shubranshu</span>
-                <span className="text-white">:~$</span>{" "}
-                <span>
-                  ENTER SYSTEM
-                  <span className="inline-block w-2 h-4 bg-white ml-1 align-middle cursor-blink" />
-                </span>
-              </p>
-            </motion.div>
-          )}
-        </div>
-    </div>
+      </div>
+    </motion.div>
   );
 }
