@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/lib/theme";
+import ArcadeGame from "./ArcadeGame";
 
 interface Hotspot {
   id: string;
@@ -11,7 +12,7 @@ interface Hotspot {
   y: number; // Center Y as percentage (0-100)
   w: number; // Interactive box width as percentage
   h: number; // Interactive box height as percentage
-  actionType: "scroll" | "sound" | "theme" | "glitch";
+  actionType: "scroll" | "sound" | "theme" | "glitch" | "game";
   target?: string;
   labelText: string;
   labelX: number; // Label X placement as percentage
@@ -21,6 +22,7 @@ interface Hotspot {
 export default function CRTComputer() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [isGlitching, setIsGlitching] = useState(false);
+  const [isGameOpen, setIsGameOpen] = useState(false);
   const { toggle } = useTheme();
 
   const hotspots: Hotspot[] = [
@@ -61,6 +63,18 @@ export default function CRTComputer() {
       labelText: "contact info",
       labelX: 32.0,
       labelY: 81.00,
+    },
+    {
+      id: "mouse",
+      name: "Arcade Mouse",
+      x: 51.3,
+      y: 81.0,
+      w: 9,
+      h: 8,
+      actionType: "game",
+      labelText: "arcade mode",
+      labelX: 48.0,
+      labelY: 73.0,
     },
     {
       id: "plant",
@@ -119,6 +133,8 @@ export default function CRTComputer() {
     } else if (hs.actionType === "glitch") {
       setIsGlitching(true);
       setTimeout(() => setIsGlitching(false), 2500);
+    } else if (hs.actionType === "game") {
+      setIsGameOpen(true);
     }
   };
 
@@ -259,6 +275,21 @@ export default function CRTComputer() {
             );
           })}
         </div>
+
+        {isGameOpen && (
+          <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/45 backdrop-blur-[2px] px-4">
+            <div className="relative w-[min(92vw,520px)] aspect-[4/3] rounded-lg border border-[#7CFF8A]/35 bg-[#050505]/95 p-4 shadow-[0_0_36px_rgba(124,255,138,0.18)]">
+              <button
+                onClick={() => setIsGameOpen(false)}
+                className="absolute right-3 top-2 z-10 font-terminal text-[10px] text-[#7CFF8A]/70 hover:text-white transition-colors cursor-pointer"
+                aria-label="Close arcade game"
+              >
+                [x]
+              </button>
+              <ArcadeGame onExit={() => setIsGameOpen(false)} />
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
