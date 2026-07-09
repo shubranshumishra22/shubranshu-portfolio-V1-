@@ -68,13 +68,13 @@ export default function CRTComputer() {
       id: "mouse",
       name: "Arcade Mouse",
       x: 51.3,
-      y: 81.0,
+      y: 72.5,
       w: 9,
       h: 8,
       actionType: "game",
       labelText: "arcade mode",
-      labelX: 48.0,
-      labelY: 73.0,
+      labelX: 42.5,
+      labelY: 69.5,
     },
     {
       id: "plant",
@@ -277,7 +277,7 @@ export default function CRTComputer() {
         </div>
 
         {isGameOpen && (
-          <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/45 backdrop-blur-[2px] px-4">
+          <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/45 backdrop-blur-[2px] px-4">
             <div className="relative w-[min(92vw,520px)] aspect-[4/3] rounded-lg border border-[#7CFF8A]/35 bg-[#050505]/95 p-4 shadow-[0_0_36px_rgba(124,255,138,0.18)]">
               <button
                 onClick={() => setIsGameOpen(false)}
