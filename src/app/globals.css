@@ -29,6 +29,12 @@
   --color-muted: #888888;
 }
 
+[data-theme="light"] .about-tagline {
+  background: #E8F5EC;
+  border-color: #9BCFAA;
+  color: #0F6B2D;
+}
+
 * {
   -ms-overflow-style: none;
   scrollbar-width: none;

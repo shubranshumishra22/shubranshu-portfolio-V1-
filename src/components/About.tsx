@@ -28,7 +28,7 @@ export default function About() {
             className="space-y-8"
           >
             {/* Tagline / Subtitle */}
-            <div className="inline-block px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[11px] font-semibold text-[#7CFF8A] uppercase tracking-wider">
+            <div className="about-tagline inline-block px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[11px] font-semibold text-[#7CFF8A] uppercase tracking-wider">
               Building AI Agents & RAG Applications | AI Engineer | Full Stack Developer
             </div>
 
