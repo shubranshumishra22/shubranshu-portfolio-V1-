@@ -17,6 +17,16 @@ export default function Terminal() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
 
+  useEffect(() => {
+    const handleFocus = () => {
+      inputRef.current?.focus();
+    };
+    window.addEventListener("focus-terminal-input", handleFocus);
+    return () => {
+      window.removeEventListener("focus-terminal-input", handleFocus);
+    };
+  }, []);
+
   // Scroll matrix trap loop (triggered at the bottom of the page via Sentinel observer)
   useEffect(() => {
     let isGlitching = false;
@@ -74,6 +84,7 @@ export default function Terminal() {
       { text: "[research]  → Scan academic publications", type: "output" },
       { text: "[skills]    → Query core technology matrix", type: "output" },
       { text: "[contact]   → Retrieve communication channels", type: "output" },
+      { text: "[spotify]   → Boot retro cyber tape & Spotify player", type: "output" },
       { text: "[play]      → Launch retro arcade game", type: "output" },
       { text: "----------------------------------------", type: "system" },
     ]);
@@ -103,6 +114,7 @@ export default function Terminal() {
         { text: "  research    → Retrieve publications archive", type: "output" },
         { text: "  skills      → Display capability indicators", type: "output" },
         { text: "  contact     → Establish secure connection", type: "output" },
+        { text: "  spotify     → Boot retro cyber tape & Spotify player", type: "output" },
         { text: "  play        → Launch retro arcade game", type: "output" },
         { text: "  clear       → Reset terminal scrollbuffer", type: "output" },
       ];
@@ -144,6 +156,18 @@ export default function Terminal() {
         { text: "Routing to #contact...", type: "system" },
       ];
       shouldScrollToSection = "contact";
+    } else if (trimmed === "spotify" || trimmed === "song" || trimmed === "music") {
+      response = [
+        { text: "[ESTABLISHING SECURE AUDIO LINK...]", type: "system" },
+        { text: "  ♫ TRACK:  Kalyani Remix", type: "output" },
+        { text: "  ♫ ARTIST: Shreya Ghoshal", type: "output" },
+        { text: "  ♫ STATUS: ONLINE & DEPLOYED", type: "output" },
+        { text: "  ♫ LINK:   https://open.spotify.com/search/Kalyani%20Remix%20Shreya%20Ghoshal", type: "output" },
+        { text: "Activating floating tape deck deck-01...", type: "system" },
+      ];
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("maximize-spotify-player"));
+      }
     } else if (trimmed === "play" || trimmed === "game") {
       response = [
         { text: "[INITIALIZING RETRO GAME GRID...]", type: "system" },

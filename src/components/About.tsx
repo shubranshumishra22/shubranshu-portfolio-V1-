@@ -1,42 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import TerminalWindow from "./TerminalWindow";
 import SectionHeading from "./SectionHeading";
 
-const aboutLines = [
-  { content: "cat about.txt", type: "prompt" as const },
-  { content: "", type: "system" as const },
-  {
-    content:
-      "Final-year engineering student focused on software engineering,",
-    type: "output" as const,
-  },
-  {
-    content: "AI systems, and full-stack development.",
-    type: "output" as const,
-  },
-  { content: "", type: "system" as const },
-  {
-    content: "Passionate about building products that solve practical",
-    type: "output" as const,
-  },
-  { content: "problems.", type: "output" as const },
-  { content: "", type: "system" as const },
-  {
-    content: "Outside technology, I enjoy fitness, sports, and",
-    type: "output" as const,
-  },
-  { content: "cinematography.", type: "output" as const },
-  { content: "", type: "system" as const },
-  {
-    content: "Location: Bengaluru, India",
-    type: "system" as const,
-  },
-  {
-    content: "Status: Final Year, B.Tech Engineering",
-    type: "system" as const,
-  },
+const skills = [
+  "Python", "C++", "JavaScript", "React", "Node.js", 
+  "TensorFlow", "PyTorch", "SQL", "PostgreSQL", "Supabase"
 ];
 
 export default function About() {
@@ -46,32 +15,73 @@ export default function About() {
       className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24"
     >
       <div className="w-full max-w-[1440px] mx-auto">
-        <SectionHeading command="$ cat about.txt" title="About Me" />
+        <SectionHeading title="About Me" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          <TerminalWindow lines={aboutLines} />
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
+          
+          {/* LEFT COLUMN: Professional biography and skills badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            {/* Tagline / Subtitle */}
+            <div className="inline-block px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[11px] font-semibold text-[#7CFF8A] uppercase tracking-wider">
+              Building AI Agents & RAG Applications | AI Engineer | Full Stack Developer
+            </div>
 
+            {/* Intro Heading */}
+            <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-primary)] leading-tight">
+              I love building software that <span className="text-[#7CFF8A]">solves real problems</span>.
+            </h3>
+
+            {/* Narrative bio paragraphs */}
+            <div className="space-y-4 text-[var(--color-secondary)] text-[15px] md:text-base leading-relaxed">
+              <p>
+                Final-year B.Tech ECE student at SRM Institute of Science & Technology passionate about AI/ML and Full-Stack Development. I enjoy building intelligent systems and scalable applications that solve real-world problems.
+              </p>
+              <p>
+                My work includes published research in IoT-based plant health monitoring, AI-powered cybersecurity solutions, machine learning systems for fault detection, and full-stack web platforms.
+              </p>
+            </div>
+
+            {/* Skills Badges Grid */}
+            <div className="pt-6 border-t border-[var(--color-border)]">
+              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] block mb-4">
+                Core Competencies
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3.5 py-1.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/40 hover:border-[#7CFF8A]/35 hover:bg-[#7CFF8A]/5 hover:text-[#7CFF8A] text-[var(--color-secondary)] text-xs font-medium transition-all duration-300"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* RIGHT COLUMN: Profile Picture Framing */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative group"
+            className="flex justify-center lg:justify-end items-center"
           >
-            <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-card)]">
+            <div className="relative w-full max-w-[420px] aspect-[4/5] rounded-3xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-card)] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] group">
               <img
-                src="/research-plant.png"
+                src="/IMG_2392.PNG"
                 alt="Shubranshu Shekhar"
-                className="absolute inset-0 w-full h-full object-cover grayscale opacity-90 group-hover:opacity-100 group-hover:contrast-125 transition-all duration-700"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent z-10" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                <p className="terminal-text text-xs text-[var(--color-muted)]">
-                  $ image --shubranshu
-                </p>
-              </div>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

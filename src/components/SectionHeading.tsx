@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
-  command: string;
+  command?: string;
   title?: string;
   className?: string;
 }
@@ -12,16 +12,18 @@ interface SectionHeadingProps {
 export default function SectionHeading({ command, title, className }: SectionHeadingProps) {
   return (
     <div className={cn("mb-12 md:mb-16", className)}>
-      <motion.div
-        initial={{ opacity: 0, x: -10 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-        className="flex items-center gap-3 mb-4"
-      >
-        <span className="text-[var(--color-muted)] terminal-text text-xs sm:text-sm">$</span>
-        <span className="text-[var(--color-primary)] terminal-text text-xs sm:text-sm">{command}</span>
-      </motion.div>
+      {command && (
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center gap-3 mb-4"
+        >
+          <span className="text-[var(--color-muted)] terminal-text text-xs sm:text-sm">$</span>
+          <span className="text-[var(--color-primary)] terminal-text text-xs sm:text-sm">{command}</span>
+        </motion.div>
+      )}
       {title && (
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

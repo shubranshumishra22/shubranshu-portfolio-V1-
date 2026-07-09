@@ -1,16 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import SectionHeading from "./SectionHeading";
+import { Briefcase, Layers, Laptop } from "lucide-react";
 
-const experiences = [
-  {
-    id: "ltm",
+export default function Experience() {
+  const corporateExperience = {
     role: "Graduate Engineer Trainee",
     company: "LTM",
+    status: "Incoming",
     location: "Bengaluru, India",
-    period: "Jul 2026 – Present",
+    period: "Starting Jul 2026",
     description: [
       "Building and maintaining full-stack applications for enterprise clients",
       "Developing RESTful APIs and microservices in Node.js and Python",
@@ -18,158 +18,154 @@ const experiences = [
       "Optimizing database queries & improving system performance",
     ],
     stack: ["Node.js", "React", "Python", "AWS", "PostgreSQL", "Docker"],
-  },
-];
+  };
 
-const logOutput = [
-  { line: "> cat /var/log/work/current.log", style: "command" },
-  { line: "", style: "empty" },
-  { line: "┌─────────────────────────────────────────────┐", style: "border" },
-  { line: "  ROLE       Graduate Engineer Trainee", style: "field" },
-  { line: "  COMPANY    LTM", style: "field" },
-  { line: "  LOCATION   Bengaluru, India", style: "field" },
-  { line: "  PERIOD     Jul 2026 – Present", style: "field" },
-  { line: "└─────────────────────────────────────────────┘", style: "border" },
-  { line: "", style: "empty" },
-  { line: "  RESPONSIBILITIES:", style: "header" },
-  { line: "  → Building and maintaining full-stack applications", style: "bullet" },
-  { line: "    for enterprise clients", style: "bulletCont" },
-  { line: "  → Developing RESTful APIs and microservices in", style: "bullet" },
-  { line: "    Node.js and Python", style: "bulletCont" },
-  { line: "  → Collaborating on CI/CD pipelines and cloud", style: "bullet" },
-  { line: "    deployments (AWS)", style: "bulletCont" },
-  { line: "  → Optimizing database queries & improving system", style: "bullet" },
-  { line: "    performance", style: "bulletCont" },
-  { line: "", style: "empty" },
-  { line: "  STACK: [Node.js, React, Python, AWS, PostgreSQL, Docker]", style: "stack" },
-  { line: "", style: "empty" },
-  { line: "", style: "cursor" },
-];
-
-export default function Experience() {
-  const [visibleLines, setVisibleLines] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setVisibleLines((prev) => {
-        if (prev < logOutput.length) return prev + 1;
-        clearInterval(timer);
-        return prev;
-      });
-    }, 40);
-    return () => clearInterval(timer);
-  }, []);
+  const freelanceProjects = [
+    {
+      title: "The Fusion Lab",
+      url: "https://thefusionlab.vercel.app/",
+      desc: "A custom laboratory client management platform and interface.",
+    },
+    {
+      title: "School Project Portal",
+      url: "https://schoolproject-indol-ten.vercel.app/",
+      desc: "An educational assignment management and portal prototype.",
+    },
+  ];
 
   return (
     <section
       id="experience"
       className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
     >
-      {/* Grid bg */}
+      {/* Soft atmospheric background grid */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.015]"
         style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
-          backgroundSize: "48px 48px",
+          backgroundSize: "64px 64px",
         }}
       />
 
       <div className="w-full max-w-[1440px] mx-auto relative">
-        <SectionHeading command="$ history" title="Experience" />
+        <SectionHeading title="Experience" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 mt-12">
-          {/* Timeline rail */}
-          <div className="lg:col-span-1 flex lg:flex-col items-center lg:items-start gap-4 lg:gap-0">
-            <div className="relative flex lg:flex-col items-center h-full">
-              {/* Line */}
-              <div className="w-px h-16 lg:h-full bg-gradient-to-b from-transparent via-[var(--color-border)] to-transparent" />
-              {/* Dot */}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="absolute top-4 lg:top-1/2 left-1/2 -translate-x-1/2 lg:-translate-y-1/2"
-              >
-                <div className="relative">
-                  <div className="w-3 h-3 rounded-full bg-[var(--color-primary)]" />
-                  <div className="absolute inset-0 w-3 h-3 rounded-full bg-[var(--color-primary)] animate-ping opacity-30" />
-                </div>
-              </motion.div>
-            </div>
-            <div className="lg:absolute lg:left-8 lg:top-1/2 lg:-translate-y-1/2 lg:text-left text-center">
-              <span className="text-xs terminal-text text-[var(--color-muted)]">
-                {experiences[0].period}
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-[1.2fr_2fr] gap-12 lg:gap-16 items-start">
+          
+          {/* LEFT COLUMN: Corporate / Industry Positions */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Briefcase className="w-4 h-4 text-[#7CFF8A]" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">
+                Industry Experience
               </span>
             </div>
-          </div>
 
-          {/* Terminal card */}
-          <div className="lg:col-span-4">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden group"
+              className="p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/20 hover:border-[#7CFF8A]/35 transition-all duration-300 relative group"
             >
-              {/* Chrome */}
-              <div className="flex items-center gap-1.5 px-5 py-3 border-b border-[var(--color-border)]">
-                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
-                <span className="ml-3 text-[11px] text-[var(--color-muted)] terminal-text">
-                  work.log — /var/log/work
-                </span>
+              {/* Incoming Badge */}
+              <div className="absolute top-6 right-6 px-3 py-1 rounded-full border border-[#7CFF8A]/35 bg-[#7CFF8A]/5 text-[10px] font-semibold text-[#7CFF8A] uppercase tracking-wider">
+                {corporateExperience.status}
               </div>
 
-              {/* Terminal body */}
-              <div className="p-5 md:p-7 font-mono text-sm leading-6 min-h-[360px]">
-                {logOutput.slice(0, visibleLines).map((entry, i) => (
-                  <div
-                    key={i}
-                    className={cn(
-                      "whitespace-pre tracking-tight",
-                      entry.style === "command" && "text-[var(--color-primary)]",
-                      entry.style === "border" && "text-[var(--color-muted)]",
-                      entry.style === "field" && "text-[var(--color-secondary)]",
-                      entry.style === "header" && "text-[var(--color-primary)] font-semibold",
-                      entry.style === "bullet" && "text-[var(--color-muted)]",
-                      entry.style === "bulletCont" && "text-[var(--color-secondary)] ml-6",
-                      entry.style === "stack" && "text-[var(--color-muted)]",
-                      entry.style === "empty" && "select-none"
-                    )}
+              <h4 className="text-lg font-bold text-[var(--color-primary)] tracking-wide">
+                {corporateExperience.role}
+              </h4>
+              
+              <div className="mt-1 flex flex-wrap items-center gap-x-2 text-[13px] text-[var(--color-secondary)]">
+                <span className="font-semibold text-[var(--color-primary)]">{corporateExperience.company}</span>
+                <span className="text-[var(--color-muted)]">•</span>
+                <span>{corporateExperience.location}</span>
+              </div>
+
+              <div className="mt-2 text-xs text-[#7CFF8A] font-semibold">
+                {corporateExperience.period}
+              </div>
+
+              <ul className="mt-6 space-y-3">
+                {corporateExperience.description.map((bullet, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5 text-[13.5px] text-[var(--color-secondary)] leading-relaxed">
+                    <span className="text-[#7CFF8A] mt-1.5 font-semibold text-[10px]">•</span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 pt-6 border-t border-[var(--color-border)] flex flex-wrap gap-1.5">
+                {corporateExperience.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2.5 py-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-secondary)] text-[11px] font-medium"
                   >
-                    {entry.line}
-                    {entry.style === "cursor" && (
-                      <motion.span
-                        animate={{ opacity: [1, 0] }}
-                        transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-                        className="inline-block w-2 h-4 bg-[var(--color-primary)] ml-0.5 align-middle"
-                      />
-                    )}
-                  </div>
+                    {tech}
+                  </span>
                 ))}
               </div>
             </motion.div>
+          </div>
 
-            {/* Tech tags below */}
-            <div className="flex flex-wrap gap-2 mt-4">
-              {experiences[0].stack.map((tech) => (
-                <span
-                  key={tech}
-                  className="text-[10px] terminal-text px-2.5 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]"
+          {/* RIGHT COLUMN: Freelancing Live Website Previews */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Laptop className="w-4 h-4 text-[#7CFF8A]" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">
+                Freelance Work & Live Previews
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {freelanceProjects.map((proj, idx) => (
+                <motion.div
+                  key={proj.title}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, duration: 0.5 }}
                 >
-                  {tech}
-                </span>
+                  <a
+                    href={proj.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col gap-3 group cursor-pointer block"
+                  >
+                    <div className="px-1">
+                      <h4 className="text-sm font-semibold text-[var(--color-primary)] tracking-wide group-hover:text-[#7CFF8A] transition-colors duration-200">
+                        {proj.title}
+                      </h4>
+                      <p className="text-[12px] text-[var(--color-secondary)] mt-0.5 line-clamp-1">
+                        {proj.desc}
+                      </p>
+                    </div>
+
+                    {/* Website Preview Container (Clean, direct preview, no mock browser bar) */}
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-card)] shadow-[0_12px_32px_rgba(0,0,0,0.05)] group-hover:border-[#7CFF8A]/35 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-300">
+                      
+                      {/* Viewport Frame loading the live Vercel application at a scaled-down ratio */}
+                      <div className="w-full h-full bg-white relative overflow-hidden">
+                        <iframe
+                          src={proj.url}
+                          title={proj.title}
+                          className="absolute inset-0 w-[200%] h-[200%] border-none scale-[0.5] origin-top-left pointer-events-none select-none bg-white"
+                          sandbox="allow-scripts allow-same-origin"
+                        />
+                        {/* Invisible pointer-events cover to prevent scroll conflicts but keep visual interactivity on hover */}
+                        <div className="absolute inset-0 bg-transparent z-10" />
+                      </div>
+
+                    </div>
+                  </a>
+                </motion.div>
               ))}
             </div>
           </div>
+
         </div>
       </div>
     </section>
   );
-}
-
-function cn(...classes: (string | false | undefined)[]) {
-  return classes.filter(Boolean).join(" ");
 }

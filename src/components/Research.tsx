@@ -16,12 +16,15 @@ export default function Research() {
       <div className="w-full max-w-[1440px] mx-auto">
         <SectionHeading command="$ open research" title="Research" />
 
-        <motion.div
+        <motion.a
+          href="https://link.springer.com/chapter/10.1007/978-981-96-8796-1_49"
+          target="_blank"
+          rel="noopener noreferrer"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden"
+          className="relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden block hover:border-white/20 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-300 cursor-pointer"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
@@ -60,15 +63,10 @@ export default function Research() {
                 ))}
               </div>
 
-              <a
-                href="https://link.springer.com/chapter/10.1007/978-981-96-8796-1_49"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-primary)] opacity-80 hover:opacity-100 hover:border-white/30 hover:bg-white/5 transition-all duration-300 terminal-text text-xs"
-              >
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-primary)] opacity-80 group-hover:opacity-100 group-hover:border-white/30 group-hover:bg-white/5 transition-all duration-300 terminal-text text-xs">
                 <span className="text-[var(--color-muted)]">$</span>
                 <span>open springer-publication</span>
-              </a>
+              </div>
 
               <div className="flex gap-3 flex-wrap mt-6">
                 <span className="text-[10px] terminal-text px-3 py-1.5 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]">
@@ -89,7 +87,7 @@ export default function Research() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </motion.a>
       </div>
     </section>
   );
