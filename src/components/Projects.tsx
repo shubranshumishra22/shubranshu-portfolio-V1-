@@ -42,7 +42,7 @@ const projects = [
     command: "$ open codewithshub --focus",
     tags: ["React", "Next.js", "TypeScript", "PostgreSQL"],
     special: false,
-    previewImage: "/codewithshubrecent.png",
+    previewImage: "/shubcodeproject.png",
     previewAlt: "CodeWithShub homepage screen",
   },
   {
