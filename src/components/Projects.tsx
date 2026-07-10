@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 import { cn } from "@/lib/utils";
@@ -41,6 +42,8 @@ const projects = [
     command: "$ open codewithshub --focus",
     tags: ["React", "Next.js", "TypeScript", "PostgreSQL"],
     special: false,
+    previewImage: "/codewithshubnew.png",
+    previewAlt: "CodeWithShub homepage screen",
   },
   {
     id: "threat-detection",
@@ -109,7 +112,7 @@ const visualLines = [
   "export default app",
 ];
 
-function RightVisual({ index }: { index: number }) {
+function RightVisual() {
   return (
     <div className="absolute inset-0 bg-[var(--color-card)] overflow-hidden">
       {/* Grid pattern */}
@@ -168,10 +171,8 @@ function RightVisual({ index }: { index: number }) {
 }
 
 export default function Projects() {
-  const [current, setCurrent] = useState(0);
-  const [hovered, setHovered] = useState(false);
+  const [current, setCurrent] = useState(() => projects.findIndex((project) => project.id === "codewithshub"));
   const [direction, setDirection] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const total = projects.length;
 
@@ -182,16 +183,6 @@ export default function Projects() {
 
   const next = useCallback(() => goTo(current + 1), [goTo, current]);
   const prev = useCallback(() => goTo(current - 1), [goTo, current]);
-
-  // Auto-play
-  useEffect(() => {
-    if (hovered) {
-      if (timerRef.current) clearInterval(timerRef.current);
-      return;
-    }
-    timerRef.current = setInterval(next, 4000);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [hovered, next]);
 
   // Keyboard
   useEffect(() => {
@@ -208,10 +199,19 @@ export default function Projects() {
   const handleTouchStart = (e: React.TouchEvent) => { touchX.current = e.touches[0].clientX; };
   const handleTouchEnd = (e: React.TouchEvent) => {
     const diff = touchX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
+    if (Math.abs(diff) <= 50) return;
+
+    if (diff > 0) {
+      next();
+    } else {
+      prev();
+    }
   };
 
   const project = projects[current];
+  const previewImage = "previewImage" in project ? project.previewImage : undefined;
+  const previewAlt = "previewAlt" in project ? project.previewAlt : undefined;
+  const hasPreview = Boolean(previewImage);
 
   const slideVariants = {
     enter: (d: number) => ({ x: d > 0 ? 300 : -300, opacity: 0 }),
@@ -229,8 +229,6 @@ export default function Projects() {
 
         <div
           className="relative mx-auto max-w-5xl"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -253,95 +251,116 @@ export default function Projects() {
               </div>
 
               {/* Poster content */}
-              <div className="grid grid-cols-1 md:grid-cols-2 min-h-[400px] md:min-h-[480px]">
+              <div
+                className={cn(
+                  "relative min-h-[400px] md:min-h-[560px]",
+                  hasPreview ? "overflow-hidden" : "grid grid-cols-1 md:grid-cols-2"
+                )}
+              >
+                {previewImage && (
+                  <>
+                    <Image
+                      src={previewImage}
+                      alt={previewAlt ?? `${project.title} preview`}
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 960px, 100vw"
+                      className="object-cover object-center opacity-95 transition duration-700 group-hover:scale-[1.015]"
+                    />
+                  </>
+                )}
+
                 {/* Left: Info */}
-                <AnimatePresence mode="wait" custom={direction}>
-                  <motion.div
-                    key={current}
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.35, ease: [0.25, 0.1, 0, 1] }}
-                    className="relative z-10 p-8 md:p-10 flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Command */}
-                      <div className="flex items-center gap-2 mb-6">
-                        <span className="text-[var(--color-muted)] terminal-text text-xs">$</span>
-                        <span className="text-[var(--color-primary)] terminal-text text-xs">{project.command}</span>
-                      </div>
-
-                      {/* Title + subtitle */}
-                      <div className="mb-2">
-                        <h3 className="text-2xl md:text-3xl font-bold text-[var(--color-primary)] tracking-tight">
-                          {project.title}
-                        </h3>
-                        <p className="text-sm text-[var(--color-muted)] terminal-text mt-1">
-                          {project.subtitle}
-                        </p>
-                      </div>
-
-                      {/* Special badge */}
-                      {project.special && (
-                        <span className="inline-block mt-3 text-[10px] terminal-text text-[var(--color-primary)] opacity-60 border border-[var(--color-border)] rounded-full px-3 py-1">
-                          ★ Featured
-                        </span>
-                      )}
-
-                      {/* Highlights */}
-                      <div className="mt-6 space-y-2">
-                        {project.highlights.map((h, i) => (
-                          <motion.div
-                            key={h}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.1 + i * 0.04, duration: 0.3 }}
-                            className="flex items-center gap-2.5"
-                          >
-                            <span className="text-[var(--color-muted)] terminal-text text-[10px]">◆</span>
-                            <span className="text-[var(--color-secondary)] text-sm">{h}</span>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Tags + action */}
-                    <div className="mt-6 space-y-4">
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[10px] terminal-text px-2.5 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--color-border)] group-hover:border-[var(--color-primary)]/30 group-hover:bg-[var(--color-card)] transition-all duration-300">
-                        <span className="text-[var(--color-muted)] terminal-text text-xs">$</span>
-                        <span className="text-[var(--color-primary)] terminal-text text-xs">{project.command}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Right: Visual */}
-                <div className="relative min-h-[280px] md:min-h-full overflow-hidden">
-                  <AnimatePresence mode="wait">
+                {!hasPreview && (
+                  <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                       key={current}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="absolute inset-0"
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      transition={{ duration: 0.35, ease: [0.25, 0.1, 0, 1] }}
+                      className="relative z-10 flex flex-col justify-between p-8 md:p-10"
                     >
-                      <RightVisual index={current} />
+                      <div>
+                        {/* Command */}
+                        <div className="flex items-center gap-2 mb-6">
+                          <span className="terminal-text text-xs text-[var(--color-muted)]">$</span>
+                          <span className="terminal-text text-xs text-[var(--color-primary)]">{project.command}</span>
+                        </div>
+
+                        {/* Title + subtitle */}
+                        <div className="mb-2">
+                          <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-[var(--color-primary)]">
+                            {project.title}
+                          </h3>
+                          <p className="text-sm terminal-text mt-1 text-[var(--color-muted)]">
+                            {project.subtitle}
+                          </p>
+                        </div>
+
+                        {/* Special badge */}
+                        {project.special && (
+                          <span className="inline-block mt-3 text-[10px] terminal-text text-[var(--color-primary)] opacity-60 border border-[var(--color-border)] rounded-full px-3 py-1">
+                            ★ Featured
+                          </span>
+                        )}
+
+                        {/* Highlights */}
+                        <div className="mt-6 space-y-2">
+                          {project.highlights.map((h, i) => (
+                            <motion.div
+                              key={h}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.1 + i * 0.04, duration: 0.3 }}
+                              className="flex items-center gap-2.5"
+                            >
+                              <span className="terminal-text text-[10px] text-[var(--color-muted)]">◆</span>
+                              <span className="text-sm text-[var(--color-secondary)]">{h}</span>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Tags + action */}
+                      <div className="mt-6 space-y-4">
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-[10px] terminal-text px-2.5 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--color-border)] group-hover:border-[var(--color-primary)]/30 group-hover:bg-[var(--color-card)] transition-all duration-300">
+                          <span className="terminal-text text-xs text-[var(--color-muted)]">$</span>
+                          <span className="terminal-text text-xs text-[var(--color-primary)]">{project.command}</span>
+                        </div>
+                      </div>
                     </motion.div>
                   </AnimatePresence>
-                </div>
+                )}
+
+                {!hasPreview && (
+                  <div className="relative min-h-[280px] md:min-h-full overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={current}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="absolute inset-0"
+                      >
+                        <RightVisual />
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+                )}
               </div>
             </div>
           </a>
