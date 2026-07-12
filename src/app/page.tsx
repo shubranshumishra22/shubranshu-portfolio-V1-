@@ -13,7 +13,6 @@ import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Research from "@/components/Research";
 import Achievements from "@/components/Achievements";
-import FavoritesLoop from "@/components/FavoritesLoop";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import SpotifyPlayer from "@/components/SpotifyPlayer";
@@ -82,7 +81,6 @@ export default function Home() {
             <Research />
             <Skills />
             <Achievements />
-            <FavoritesLoop />
             <Contact />
           </main>
           {/* Sentinel element to trigger the scroll-lock matrix loop */}
