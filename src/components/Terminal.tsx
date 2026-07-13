@@ -27,49 +27,6 @@ export default function Terminal() {
     };
   }, []);
 
-  // Scroll matrix trap loop (triggered at the bottom of the page via Sentinel observer)
-  useEffect(() => {
-    let isGlitching = false;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting && !isGlitching) {
-          isGlitching = true;
-          
-          setHistory((prev) => [
-            ...prev,
-            { text: "visitor@shubranshu:~$ scroll", type: "prompt" },
-            { text: "error: escape boundary exceeded.", type: "system" },
-            { text: "oops stuck in matrix", type: "output" },
-          ]);
-
-          if (lenis) {
-            lenis.scrollTo(0, { duration: 1.8 });
-          } else {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }
-
-          setTimeout(() => {
-            isGlitching = false;
-          }, 2000);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const sentinel = document.getElementById("page-bottom-sentinel");
-    if (sentinel) {
-      observer.observe(sentinel);
-    }
-
-    return () => {
-      if (sentinel) {
-        observer.unobserve(sentinel);
-      }
-      observer.disconnect();
-    };
-  }, [lenis]);
 
   // Initial boot sequences
   useEffect(() => {

@@ -44,31 +44,43 @@ const links = [
     label: "GitHub", 
     url: "https://github.com/shubranshumishra22", 
     icon: GithubIcon, 
-    desc: "Explore my open-source code and development projects." 
+    desc: "Explore my open-source code and development projects.",
+    cardClass: "card-rust",
+    accentColor: "var(--color-rust)",
+    iconBgClass: "group-hover:bg-[var(--color-rust)]/5 group-hover:border-[var(--color-rust)]/20 text-[var(--color-secondary)] group-hover:text-[var(--color-rust)]",
   },
   {
     label: "LinkedIn",
     url: "https://www.linkedin.com/in/shubranshu-shekhar-633192299/",
     icon: LinkedinIcon,
-    desc: "Connect with me professionally and check my updates."
+    desc: "Connect with me professionally and check my updates.",
+    cardClass: "card-teal",
+    accentColor: "var(--color-teal)",
+    iconBgClass: "group-hover:bg-[var(--color-teal)]/5 group-hover:border-[var(--color-teal)]/20 text-[var(--color-secondary)] group-hover:text-[var(--color-teal)]",
   },
   { 
     label: "Instagram", 
-    url: "https://www.instagram.com/buildwithshub/", 
+    url: "https://www.instagram.com/shubbuilds/?hl=en", 
     icon: InstagramIcon, 
-    desc: "Follow my daily design work and coding tips." 
+    desc: "Follow my daily design work and coding tips.",
+    cardClass: "card-amber",
+    accentColor: "var(--color-amber)",
+    iconBgClass: "group-hover:bg-[var(--color-amber)]/5 group-hover:border-[var(--color-amber)]/20 text-[var(--color-secondary)] group-hover:text-[var(--color-amber)]",
   },
   {
     label: "Resume",
     url: "https://drive.google.com/file/d/1aG8dQ7MXFvwYUtlIp2LsYbdHLpnNq51u/view?usp=sharing",
     icon: FileTextIcon,
-    desc: "Read my detailed experience and qualifications."
+    desc: "Read my detailed experience and qualifications.",
+    cardClass: "card-sage",
+    accentColor: "var(--color-sage)",
+    iconBgClass: "group-hover:bg-[var(--color-sage)]/5 group-hover:border-[var(--color-sage)]/20 text-[var(--color-secondary)] group-hover:text-[var(--color-sage)]",
   },
 ];
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
-  const email = "shubranshushekhar22@gmail.com";
+  const email = "shubranshumishra22@gmail.com";
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -79,7 +91,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24"
+      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-[var(--color-bg)]"
     >
       <div className="w-full max-w-[1440px] mx-auto">
         <SectionHeading title="Connect" />
@@ -95,9 +107,9 @@ export default function Contact() {
             className="flex flex-col justify-between"
           >
             <div>
-              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[var(--color-primary)] leading-tight">
+              <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif-editorial font-normal tracking-tight text-[var(--color-primary)] leading-tight">
                 Let's build something <br />
-                <span className="text-[#7CFF8A]">exceptional</span> together.
+                <span className="text-[var(--color-accent)] italic">exceptional</span> together.
               </h3>
               <p className="mt-6 text-[15px] md:text-base text-[var(--color-secondary)] leading-relaxed max-w-lg">
                 I'm always looking for new opportunities to collaborate on innovative projects, 
@@ -111,23 +123,23 @@ export default function Contact() {
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">
                 Direct Contact
               </span>
-              <div className="mt-3 flex items-center justify-between p-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/40 hover:border-[#7CFF8A]/35 transition-all duration-300 group max-w-md">
+              <div className="mt-3 flex items-center justify-between p-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] hover:border-[var(--color-accent)] transition-all duration-300 group max-w-md">
                 <a
                   href={`mailto:${email}`}
-                  className="flex items-center gap-3 text-[var(--color-primary)] hover:text-[#7CFF8A] transition-colors duration-200"
+                  className="flex items-center gap-3 text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors duration-200"
                 >
-                  <Mail className="w-[18px] h-[18px] text-[#7CFF8A]" />
+                  <Mail className="w-[18px] h-[18px] text-[var(--color-accent)]" />
                   <span className="text-sm font-medium tracking-wide truncate">{email}</span>
                 </a>
                 <button
                   onClick={handleCopyEmail}
-                  className="flex items-center gap-1.5 text-xs text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-colors duration-200 px-3 py-1.5 rounded-lg bg-[var(--color-surface)] hover:bg-[var(--color-card)]"
+                  className="flex items-center gap-1.5 text-xs text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-colors duration-200 px-3 py-1.5 rounded-lg bg-[var(--color-surface)] hover:bg-[var(--color-card)] border border-[var(--color-border)]"
                   title="Copy email to clipboard"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-[13px] h-[13px] text-[#7CFF8A]" />
-                      <span className="text-[#7CFF8A] font-medium">Copied</span>
+                      <Check className="w-[13px] h-[13px] text-[var(--color-highlight-green)]" />
+                      <span className="text-[var(--color-highlight-green)] font-medium">Copied</span>
                     </>
                   ) : (
                     <>
@@ -151,16 +163,17 @@ export default function Contact() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
+                  className="flex"
                 >
                   <a
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex flex-col justify-between h-full p-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/20 hover:border-[#7CFF8A]/35 hover:bg-[#7CFF8A]/5 hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-300 group"
+                    className={`tano-card flex flex-col justify-between h-full p-6 group w-full ${link.cardClass}`}
                   >
                     <div>
                       <div className="flex items-center justify-between">
-                        <div className="p-2.5 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-secondary)] group-hover:text-[#7CFF8A] group-hover:bg-[#7CFF8A]/5 group-hover:border-[#7CFF8A]/10 transition-all duration-300">
+                        <div className={`p-2.5 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] transition-all duration-300 ${link.iconBgClass}`}>
                           <Icon className="w-[18px] h-[18px]" />
                         </div>
                         <ArrowUpRight className="w-4 h-4 text-[var(--color-muted)] group-hover:text-[var(--color-primary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />

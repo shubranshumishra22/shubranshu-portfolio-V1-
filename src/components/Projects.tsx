@@ -1,10 +1,16 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
-import { cn } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
+
+// Inline SVG Icon components for social links to ensure cross-version compatibility
+const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
 
 const projects = [
   {
@@ -16,14 +22,16 @@ const projects = [
     highlights: [
       "Multi-Tenant Routing Engine & Custom Domains",
       "Self-Healing LLM Fallback Pipeline",
-      "Next.js ISR & On-demand Revalidation",
       "Supabase PostgreSQL Constraints & RLS",
       "Interactive Split Editor & Live Preview",
       "Razorpay Subscription & Checkout flows",
     ],
-    command: "$ open nudge-commerce-ai --focus",
     tags: ["Next.js", "Supabase", "OpenRouter", "Razorpay", "Tailwind CSS"],
     special: true,
+    accentColor: "var(--color-rust)",
+    cardClass: "card-rust",
+    badgeClass: "border-[var(--color-rust)]/20 bg-[var(--color-rust)]/5 text-[var(--color-rust)]",
+    pillClass: "border-[var(--color-rust)]/15 bg-[var(--color-rust)]/5 text-[var(--color-rust)]",
   },
   {
     id: "codewithshub",
@@ -32,18 +40,17 @@ const projects = [
     url: "https://codewithshub-frontend.vercel.app/",
     repo: "https://github.com/shubranshumishra22",
     highlights: [
-      "DSA Tracking",
-      "Revision Scheduler",
-      "1-3-7-17-30-60-90 Rule",
-      "Streaks System",
-      "Progress Analytics",
-      "Smart Revision",
+      "Revision Scheduler with 1-3-7-17-30-60-90 Rule",
+      "Real-time DSA Tracking & Progress Analytics",
+      "Gamified Streaks System & Smart revision loops",
+      "Modern dashboard interface for learning insights",
     ],
-    command: "$ open codewithshub --focus",
     tags: ["React", "Next.js", "TypeScript", "PostgreSQL"],
-    special: false,
-    previewImage: "/shubcodeproject.png",
-    previewAlt: "CodeWithShub homepage screen",
+    special: true,
+    accentColor: "var(--color-teal)",
+    cardClass: "card-teal",
+    badgeClass: "border-[var(--color-teal)]/20 bg-[var(--color-teal)]/5 text-[var(--color-teal)]",
+    pillClass: "border-[var(--color-teal)]/15 bg-[var(--color-teal)]/5 text-[var(--color-teal)]",
   },
   {
     id: "threat-detection",
@@ -51,16 +58,16 @@ const projects = [
     subtitle: "AI + Blockchain Security",
     url: "https://github.com/shubranshumishra22/maliciousDomainDetector",
     highlights: [
-      "36,000+ URLs Analyzed",
-      "97.07% Accuracy",
-      "Flask API",
-      "MLP Classifier",
-      "Gemini Integration",
-      "Blockchain Storage",
+      "36,000+ URLs analyzed with MLP Classifier",
+      "97.07% Accuracy in live domain detection",
+      "Gemini API integration with Blockchain Storage",
     ],
-    command: "$ open threat-system",
     tags: ["Python", "Flask", "scikit-learn", "Web3"],
     special: false,
+    accentColor: "var(--color-sage)",
+    cardClass: "card-sage",
+    badgeClass: "border-[var(--color-sage)]/20 bg-[var(--color-sage)]/5 text-[var(--color-sage)]",
+    pillClass: "border-[var(--color-sage)]/15 bg-[var(--color-sage)]/5 text-[var(--color-sage)]",
   },
   {
     id: "wafer-fault",
@@ -68,341 +75,142 @@ const projects = [
     subtitle: "Predictive Maintenance",
     url: "https://github.com/shubranshumishra22/Wafer-Sensor-Fault-Detection-System",
     highlights: [
-      "500+ Sensors",
-      "Random Forest",
-      "Flask Deployment",
-      "Automated Pipeline",
-      "SMOTETomek",
+      "Analyzes 500+ sensors using Random Forest model",
+      "SMOTETomek data balancing pipeline & Flask API",
+      "Containerized deployment configuration",
     ],
-    command: "$ open wafer-detection",
     tags: ["Python", "Flask", "ML", "Docker"],
     special: false,
+    accentColor: "var(--color-amber)",
+    cardClass: "card-amber",
+    badgeClass: "border-[var(--color-amber)]/20 bg-[var(--color-amber)]/5 text-[var(--color-amber)]",
+    pillClass: "border-[var(--color-amber)]/15 bg-[var(--color-amber)]/5 text-[var(--color-amber)]",
   },
   {
     id: "cookmate",
     title: "CookMate",
-    subtitle: "Full-Stack Recipe Platform",
+    subtitle: "Recipe Management Platform",
     url: "https://cookmate-flame.vercel.app/",
     highlights: [
-      "PostgreSQL",
-      "Supabase",
-      "Express",
-      "Real-time Ratings",
-      "Multi-tenant System",
+      "Full-stack platform built with Supabase & PostgreSQL",
+      "Real-time user ratings and multi-tenant scaling",
+      "Optimized query constraints & responsive interfaces",
     ],
-    command: "$ open cookmate",
     tags: ["Next.js", "PostgreSQL", "Supabase", "Express"],
     special: false,
+    accentColor: "var(--color-teal)",
+    cardClass: "card-teal",
+    badgeClass: "border-[var(--color-teal)]/20 bg-[var(--color-teal)]/5 text-[var(--color-teal)]",
+    pillClass: "border-[var(--color-teal)]/15 bg-[var(--color-teal)]/5 text-[var(--color-teal)]",
   },
 ];
 
-const visualLines = [
-  "import { Project } from './types'",
-  "",
-  "const app: Project = {",
-  "  status: 'production',",
-  "  stack: ['React', 'Node'],",
-  "  deploy: 'vercel',",
-  "  metrics: {",
-  "    users: '1.2k+',",
-  "    uptime: '99.9%'",
-  "  }",
-  "}",
-  "",
-  "export default app",
-];
-
-function RightVisual() {
-  return (
-    <div className="absolute inset-0 bg-[var(--color-card)] overflow-hidden">
-      {/* Grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)`,
-          backgroundSize: "24px 24px",
-        }}
-      />
-      {/* Diagonal lines */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03]">
-        <line x1="0" y1="0" x2="100%" y2="100%" stroke="white" strokeWidth="0.5" />
-        <line x1="30%" y1="0" x2="100%" y2="50%" stroke="white" strokeWidth="0.5" />
-        <line x1="0" y1="40%" x2="60%" y2="100%" stroke="white" strokeWidth="0.5" />
-      </svg>
-      {/* Terminal code lines */}
-      <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
-        <div className="space-y-[3px] w-full">
-          {visualLines.map((line, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.03, duration: 0.3 }}
-              className="flex items-start gap-2"
-            >
-              <span className="text-[10px] leading-5 text-[var(--color-muted)] terminal-text w-5 text-right shrink-0 select-none">
-                {i + 1}
-              </span>
-              <span
-                className={cn(
-                  "text-[11px] leading-5 terminal-text whitespace-pre",
-                  line.startsWith("  ")
-                    ? "text-[var(--color-muted)]"
-                    : line.startsWith("}")
-                    ? "text-[var(--color-muted)]"
-                    : line.endsWith(":") || line.includes(":")
-                    ? "text-[var(--color-secondary)]"
-                    : line.includes("'") || line.includes('"')
-                    ? "text-[var(--color-muted)]"
-                    : "text-[var(--color-primary)]"
-                )}
-              >
-                {line || " "}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-      {/* Gradient fade on edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[var(--color-card)] to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-[var(--color-card)] to-transparent pointer-events-none" />
-    </div>
-  );
-}
-
 export default function Projects() {
-  const [current, setCurrent] = useState(() => projects.findIndex((project) => project.id === "codewithshub"));
-  const [direction, setDirection] = useState(0);
-
-  const total = projects.length;
-
-  const goTo = useCallback((i: number) => {
-    setDirection(i > current ? 1 : -1);
-    setCurrent((i + total) % total);
-  }, [current, total]);
-
-  const next = useCallback(() => goTo(current + 1), [goTo, current]);
-  const prev = useCallback(() => goTo(current - 1), [goTo, current]);
-
-  // Keyboard
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft") prev();
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [next, prev]);
-
-  // Touch swipe
-  const touchX = useRef(0);
-  const handleTouchStart = (e: React.TouchEvent) => { touchX.current = e.touches[0].clientX; };
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const diff = touchX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) <= 50) return;
-
-    if (diff > 0) {
-      next();
-    } else {
-      prev();
-    }
-  };
-
-  const project = projects[current];
-  const previewImage = "previewImage" in project ? project.previewImage : undefined;
-  const previewAlt = "previewAlt" in project ? project.previewAlt : undefined;
-  const hasPreview = Boolean(previewImage);
-
-  const slideVariants = {
-    enter: (d: number) => ({ x: d > 0 ? 300 : -300, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (d: number) => ({ x: d > 0 ? -300 : 300, opacity: 0 }),
-  };
-
   return (
     <section
       id="projects"
-      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-[var(--color-bg)]"
     >
       <div className="w-full max-w-[1440px] mx-auto">
-        <SectionHeading command="$ open projects" title="Projects" />
+        <SectionHeading title="Projects" />
 
-        <div
-          className="relative mx-auto max-w-5xl"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Poster */}
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block"
-          >
-            <div className="relative rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden group cursor-pointer">
-              {/* Terminal chrome */}
-              <div className="flex items-center gap-1.5 px-5 py-3.5 border-b border-[var(--color-border)]">
-                <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-                <div className="w-3 h-3 rounded-full bg-[#28C840]" />
-                <span className="ml-3 text-[11px] text-[var(--color-muted)] terminal-text">
-                  {project.id} — {project.subtitle}
-                </span>
-              </div>
-
-              {/* Poster content */}
-              <div
-                className={cn(
-                  "relative min-h-[400px] md:min-h-[560px]",
-                  hasPreview ? "overflow-hidden" : "grid grid-cols-1 md:grid-cols-2"
-                )}
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 items-stretch">
+          {projects.map((project, idx) => {
+            const isFeatured = project.special;
+            
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={isFeatured ? "lg:col-span-3 flex" : "lg:col-span-2 flex"}
               >
-                {previewImage && (
-                  <>
-                    <Image
-                      src={previewImage}
-                      alt={previewAlt ?? `${project.title} preview`}
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 960px, 100vw"
-                      className="object-cover object-center opacity-95 transition duration-700 group-hover:scale-[1.015]"
-                    />
-                  </>
-                )}
-
-                {/* Left: Info */}
-                {!hasPreview && (
-                  <AnimatePresence mode="wait" custom={direction}>
-                    <motion.div
-                      key={current}
-                      custom={direction}
-                      variants={slideVariants}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{ duration: 0.35, ease: [0.25, 0.1, 0, 1] }}
-                      className="relative z-10 flex flex-col justify-between p-8 md:p-10"
-                    >
-                      <div>
-                        {/* Command */}
-                        <div className="flex items-center gap-2 mb-6">
-                          <span className="terminal-text text-xs text-[var(--color-muted)]">$</span>
-                          <span className="terminal-text text-xs text-[var(--color-primary)]">{project.command}</span>
-                        </div>
-
-                        {/* Title + subtitle */}
-                        <div className="mb-2">
-                          <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-[var(--color-primary)]">
-                            {project.title}
-                          </h3>
-                          <p className="text-sm terminal-text mt-1 text-[var(--color-muted)]">
-                            {project.subtitle}
-                          </p>
-                        </div>
-
-                        {/* Special badge */}
-                        {project.special && (
-                          <span className="inline-block mt-3 text-[10px] terminal-text text-[var(--color-primary)] opacity-60 border border-[var(--color-border)] rounded-full px-3 py-1">
-                            ★ Featured
-                          </span>
-                        )}
-
-                        {/* Highlights */}
-                        <div className="mt-6 space-y-2">
-                          {project.highlights.map((h, i) => (
-                            <motion.div
-                              key={h}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.1 + i * 0.04, duration: 0.3 }}
-                              className="flex items-center gap-2.5"
-                            >
-                              <span className="terminal-text text-[10px] text-[var(--color-muted)]">◆</span>
-                              <span className="text-sm text-[var(--color-secondary)]">{h}</span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Tags + action */}
-                      <div className="mt-6 space-y-4">
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-[10px] terminal-text px-2.5 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-muted)]"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[var(--color-border)] group-hover:border-[var(--color-primary)]/30 group-hover:bg-[var(--color-card)] transition-all duration-300">
-                          <span className="terminal-text text-xs text-[var(--color-muted)]">$</span>
-                          <span className="terminal-text text-xs text-[var(--color-primary)]">{project.command}</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-                )}
-
-                {!hasPreview && (
-                  <div className="relative min-h-[280px] md:min-h-full overflow-hidden">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={current}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="absolute inset-0"
-                      >
-                        <RightVisual />
-                      </motion.div>
-                    </AnimatePresence>
+                <div 
+                  className={`tano-card p-6 md:p-8 flex flex-col justify-between w-full h-full relative group ${project.cardClass}`}
+                >
+                  {/* Subtle index mark */}
+                  <div className="absolute top-6 right-6 font-handwritten text-xl text-[var(--project-accent)] opacity-40 select-none" style={{ "--project-accent": project.accentColor } as React.CSSProperties}>
+                    #{idx + 1}
                   </div>
-                )}
-              </div>
-            </div>
-          </a>
 
-          {/* Navigation */}
-          <div className="flex items-center justify-between mt-6 px-2">
-            {/* Dots */}
-            <div className="flex items-center gap-2">
-              {projects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i)}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-500",
-                    i === current
-                      ? "w-6 bg-[var(--color-primary)]"
-                      : "w-1.5 bg-[var(--color-border)] hover:bg-[var(--color-muted)]"
-                  )}
-                />
-              ))}
-            </div>
+                  <div>
+                    {/* Tags block */}
+                    <div className="flex flex-wrap gap-1.5 mb-6 pr-6">
+                      {isFeatured && (
+                        <span className={`text-[10px] tracking-wider uppercase font-semibold rounded-full px-2 py-0.5 ${project.badgeClass}`}>
+                          Featured
+                        </span>
+                      )}
+                      <span className="text-[10px] tracking-wider uppercase font-medium text-[var(--color-muted)] font-mono">
+                        {project.id.replace(/-/g, " ")}
+                      </span>
+                    </div>
 
-            {/* Arrows */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={prev}
-                className="w-8 h-8 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 transition-all duration-200"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M9 3L5 7L9 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-              <button
-                onClick={next}
-                className="w-8 h-8 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 transition-all duration-200"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M5 3L9 7L5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </div>
-          </div>
+                    {/* Title */}
+                    <h3 className="text-2xl md:text-3xl font-serif-editorial font-normal text-[var(--color-primary)] leading-tight mb-2 pr-6">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs uppercase tracking-wider text-[var(--color-secondary)]/70 font-semibold mb-6">
+                      {project.subtitle}
+                    </p>
+
+                    {/* Highlights */}
+                    <ul className="space-y-3 mb-8">
+                      {project.highlights.map((h) => (
+                        <li key={h} className="flex items-start gap-2.5 text-sm text-[var(--color-secondary)] leading-relaxed">
+                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[var(--project-accent)]" style={{ "--project-accent": project.accentColor } as React.CSSProperties} />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Tech stack & action buttons */}
+                  <div className="pt-6 border-t border-[var(--color-border)] mt-auto">
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`tano-pill px-2.5 py-1 text-[11px] font-medium ${project.pillClass}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      {project.url && (
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--project-accent)] hover:opacity-85 transition-opacity"
+                          style={{ "--project-accent": project.accentColor } as React.CSSProperties}
+                        >
+                          <span>Launch Project</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                      {project.repo && (
+                        <a
+                          href={project.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition-colors ml-auto"
+                          title="View Repository"
+                        >
+                          <GithubIcon className="w-4 h-4" />
+                          <span>Source</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

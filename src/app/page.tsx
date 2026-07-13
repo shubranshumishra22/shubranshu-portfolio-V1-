@@ -16,6 +16,7 @@ import Achievements from "@/components/Achievements";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import SpotifyPlayer from "@/components/SpotifyPlayer";
+import Footer from "@/components/Footer";
 
 // Internal controller component to handle scroll locks during loading
 function ScrollTransitionController({ loaded }: { loaded: boolean }) {
@@ -82,9 +83,9 @@ export default function Home() {
             <Skills />
             <Achievements />
             <Contact />
+            <Footer />
           </main>
-          {/* Sentinel element to trigger the scroll-lock matrix loop */}
-          <div id="page-bottom-sentinel" className="w-full h-2 pointer-events-none" />
+
         </div>
       </ReactLenis>
     </ThemeProvider>

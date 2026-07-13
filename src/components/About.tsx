@@ -4,20 +4,28 @@ import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
 
 const skills = [
-  "Python", "C++", "JavaScript", "React", "Node.js", 
-  "TensorFlow", "PyTorch", "SQL", "PostgreSQL", "Supabase"
+  { name: "Python", colorClass: "border-[var(--color-teal)]/20 bg-[var(--color-teal)]/5 text-[var(--color-teal)] hover:!border-[var(--color-teal)]" },
+  { name: "C++", colorClass: "border-[var(--color-rust)]/20 bg-[var(--color-rust)]/5 text-[var(--color-rust)] hover:!border-[var(--color-rust)]" },
+  { name: "JavaScript", colorClass: "border-[var(--color-rust)]/20 bg-[var(--color-rust)]/5 text-[var(--color-rust)] hover:!border-[var(--color-rust)]" },
+  { name: "React", colorClass: "border-[var(--color-sage)]/20 bg-[var(--color-sage)]/5 text-[var(--color-sage)] hover:!border-[var(--color-sage)]" },
+  { name: "Next.js", colorClass: "border-[var(--color-sage)]/20 bg-[var(--color-sage)]/5 text-[var(--color-sage)] hover:!border-[var(--color-sage)]" },
+  { name: "TensorFlow", colorClass: "border-[var(--color-teal)]/20 bg-[var(--color-teal)]/5 text-[var(--color-teal)] hover:!border-[var(--color-teal)]" },
+  { name: "PyTorch", colorClass: "border-[var(--color-teal)]/20 bg-[var(--color-teal)]/5 text-[var(--color-teal)] hover:!border-[var(--color-teal)]" },
+  { name: "SQL", colorClass: "border-[var(--color-amber)]/20 bg-[var(--color-amber)]/5 text-[var(--color-amber)] hover:!border-[var(--color-amber)]" },
+  { name: "PostgreSQL", colorClass: "border-[var(--color-amber)]/20 bg-[var(--color-amber)]/5 text-[var(--color-amber)] hover:!border-[var(--color-amber)]" },
+  { name: "Supabase", colorClass: "border-[var(--color-amber)]/20 bg-[var(--color-amber)]/5 text-[var(--color-amber)] hover:!border-[var(--color-amber)]" }
 ];
 
 export default function About() {
   return (
     <section
       id="about"
-      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24"
+      className="relative py-24 md:py-32 px-6 md:px-12 lg:px-24 bg-[var(--color-bg)]"
     >
       <div className="w-full max-w-[1440px] mx-auto">
         <SectionHeading title="About Me" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-20 items-center">
           
           {/* LEFT COLUMN: Professional biography and skills badges */}
           <motion.div
@@ -28,17 +36,17 @@ export default function About() {
             className="space-y-8"
           >
             {/* Tagline / Subtitle */}
-            <div className="about-tagline inline-block px-3 py-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[11px] font-semibold text-[#7CFF8A] uppercase tracking-wider">
+            <div className="tano-pill uppercase tracking-wider text-[10px] py-1 px-3 border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 text-[var(--color-accent)] font-semibold">
               Building AI Agents & RAG Applications | AI Engineer | Full Stack Developer
             </div>
 
             {/* Intro Heading */}
-            <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-primary)] leading-tight">
-              I love building software that <span className="text-[#7CFF8A]">solves real problems</span>.
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif-editorial font-normal tracking-tight text-[var(--color-primary)] leading-tight">
+              I love building software that <span className="text-[var(--color-accent)] italic">solves real problems</span>.
             </h3>
 
             {/* Narrative bio paragraphs */}
-            <div className="space-y-4 text-[var(--color-secondary)] text-[15px] md:text-base leading-relaxed">
+            <div className="space-y-4 text-[var(--color-secondary)] text-sm md:text-base leading-relaxed">
               <p>
                 Final-year B.Tech ECE student at SRM Institute of Science & Technology passionate about AI/ML and Full-Stack Development. I enjoy building intelligent systems and scalable applications that solve real-world problems.
               </p>
@@ -49,16 +57,21 @@ export default function About() {
 
             {/* Skills Badges Grid */}
             <div className="pt-6 border-t border-[var(--color-border)]">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)] block mb-4">
-                Core Competencies
-              </span>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-muted)]">
+                  Core Competencies
+                </span>
+                <span className="font-handwritten text-base text-[var(--color-accent)] -rotate-2 select-none">
+                  Always learning new things...
+                </span>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill) => (
                   <span
-                    key={skill}
-                    className="px-3.5 py-1.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/40 hover:border-[#7CFF8A]/35 hover:bg-[#7CFF8A]/5 hover:text-[#7CFF8A] text-[var(--color-secondary)] text-xs font-medium transition-all duration-300"
+                    key={skill.name}
+                    className={`tano-pill border text-xs font-medium px-3.5 py-1.5 ${skill.colorClass}`}
                   >
-                    {skill}
+                    {skill.name}
                   </span>
                 ))}
               </div>
@@ -67,18 +80,30 @@ export default function About() {
 
           {/* RIGHT COLUMN: Profile Picture Framing */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex justify-center lg:justify-end items-center"
+            className="flex flex-col items-center justify-center lg:items-end"
           >
-            <div className="relative w-full max-w-[420px] aspect-[4/5] rounded-3xl overflow-hidden border border-[var(--color-border)] bg-[var(--color-card)] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.15)] group">
-              <img
-                src="/IMG_2392.PNG"
-                alt="Shubranshu Shekhar"
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-              />
+            <div className="tano-card p-3 w-full max-w-[380px] aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_20px_40px_-15px_rgba(28,24,21,0.06)] group">
+              <div className="w-full h-full rounded-2xl overflow-hidden bg-[var(--color-surface)]">
+                <img
+                  src="/IMG_2392.PNG"
+                  alt="Shubranshu Shekhar"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
+              </div>
+            </div>
+            
+            <div className="mt-4 flex items-center gap-2 max-w-[380px] w-full px-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
+              <span className="text-xs text-[var(--color-secondary)] uppercase tracking-wider font-semibold">
+                Available for internships & roles
+              </span>
+              <span className="font-handwritten text-lg text-[var(--color-accent)] rotate-3 ml-auto select-none">
+                Get in touch!
+              </span>
             </div>
           </motion.div>
 

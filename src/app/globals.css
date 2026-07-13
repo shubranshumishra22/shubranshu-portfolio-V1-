@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800;900&family=Fredoka:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/500.css";
@@ -6,33 +7,106 @@
 @import "@fontsource/ibm-plex-mono/500.css";
 @import "@fontsource/ibm-plex-mono/600.css";
 
-@theme inline {
-  --color-bg: #050505;
-  --color-surface: #0D0D0D;
-  --color-card: #111111;
-  --color-border: #222222;
-  --color-primary: #FFFFFF;
-  --color-secondary: #A1A1A1;
-  --color-muted: #666666;
-  --font-mono: "JetBrains Mono", monospace;
-  --font-terminal: "IBM Plex Mono", monospace;
-  --font-sans: "General Sans", "Satoshi", -apple-system, BlinkMacSystemFont, sans-serif;
+
+:root {
+  --color-bg: #141210;
+  --color-surface: #1C1A18;
+  --color-card: #23201D;
+  --color-border: #332E29;
+  --color-primary: #F2ECE4;
+  --color-secondary: #BCB3A8;
+  --color-muted: #80756B;
+  --color-accent: #D16234;
+  --color-highlight-green: #77B688;
+  
+  /* Additional Cozy Design Colors */
+  --color-amber: #F0AC13;
+  --color-teal: #6DA6C2;
+  --color-sage: #8EBA9D;
+  --color-rust: #D16234;
+
+  /* Solid Borders & Shadows for Neo-Brutalist look */
+  --color-card-border-solid: #332E29;
+  --color-card-shadow-solid: #000000;
+
+  /* Cozy Box Fills - Dark Mode (Muted Saturated) */
+  --color-card-amber-bg: #2B2418;
+  --color-card-amber-border: #3E3423;
+  --color-card-teal-bg: #182830;
+  --color-card-teal-border: #233945;
+  --color-card-sage-bg: #1A2B20;
+  --color-card-sage-border: #263E2E;
+  --color-card-rust-bg: #2B1D18;
+  --color-card-rust-border: #3E2B23;
 }
 
 [data-theme="light"] {
-  --color-bg: #FAFAFA;
-  --color-surface: #F0F0F0;
-  --color-card: #E8E8E8;
-  --color-border: #D4D4D4;
-  --color-primary: #111111;
-  --color-secondary: #555555;
-  --color-muted: #888888;
+  --color-bg: #EFE9DF;
+  --color-surface: #E5DCD0;
+  --color-card: #FFFFFF;
+  --color-border: #D8CEBE;
+  --color-primary: #1C1815;
+  --color-secondary: #504840;
+  --color-muted: #80756B;
+  --color-accent: #8C3E1E;
+  --color-highlight-green: #4D6A52;
+  
+  /* Additional Cozy Design Colors */
+  --color-amber: #D48806;
+  --color-teal: #1E485A;
+  --color-sage: #4D6A52;
+  --color-rust: #8C3E1E;
+
+  /* Solid Borders & Shadows for Neo-Brutalist look */
+  --color-card-border-solid: #000000;
+  --color-card-shadow-solid: #000000;
+
+  /* Cozy Box Fills - Light Mode (Vibrant Neo-Brutalist) */
+  --color-card-amber-bg: #FED66E;
+  --color-card-amber-border: #000000;
+  --color-card-teal-bg: #A5DEF1;
+  --color-card-teal-border: #000000;
+  --color-card-sage-bg: #9CE2C5;
+  --color-card-sage-border: #000000;
+  --color-card-rust-bg: #F87F68;
+  --color-card-rust-border: #000000;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-card: var(--color-card);
+  --color-border: var(--color-border);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-muted: var(--color-muted);
+  --color-accent: var(--color-accent);
+  --color-highlight-green: var(--color-highlight-green);
+  --color-amber: var(--color-amber);
+  --color-teal: var(--color-teal);
+  --color-sage: var(--color-sage);
+  --color-rust: var(--color-rust);
+  
+  --color-card-amber-bg: var(--color-card-amber-bg);
+  --color-card-amber-border: var(--color-card-amber-border);
+  --color-card-teal-bg: var(--color-card-teal-bg);
+  --color-card-teal-border: var(--color-card-teal-border);
+  --color-card-sage-bg: var(--color-card-sage-bg);
+  --color-card-sage-border: var(--color-card-sage-border);
+  --color-card-rust-bg: var(--color-card-rust-bg);
+  --color-card-rust-border: var(--color-card-rust-border);
+
+  --font-mono: "JetBrains Mono", monospace;
+  --font-terminal: "IBM Plex Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+  --font-editorial: "Instrument Serif", serif;
+  --font-handwritten: "Caveat", cursive;
 }
 
 [data-theme="light"] .about-tagline {
-  background: #E8F5EC;
-  border-color: #9BCFAA;
-  color: #0F6B2D;
+  background: rgba(140, 62, 30, 0.06);
+  border-color: rgba(140, 62, 30, 0.25);
+  color: #8C3E1E;
 }
 
 * {
@@ -186,4 +260,107 @@ html, body, * {
 
 a, button, [role="button"], span.underline, .cursor-pointer, input, textarea {
   cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDE2IDI0IiBmaWxsPSJub25lIj48cmVjdCB4PSIzIiB5PSIzIiB3aWR0aD0iMTAiIGhlaWdodD0iMTYiIHJ4PSI1IiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJyZ2JhKDEyNCwyNTUsMTM4LDAuMSkiLz48cmVjdCB4PSI3IiB5PSI2IiB3aWR0aD0iMiIgaGVpZ2h0PSI0IiByeD0iMSIgZmlsbD0iIzdDRkY4QSIvPjxsaW5lIHgxPSI4IiB5MT0iMyIgeDI9IjgiIHkyPSI5IiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==") 8 11, pointer !important;
+}
+
+/* Custom Design Helpers inspired by tano.ai */
+.font-serif-editorial {
+  font-family: var(--font-editorial), serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.font-handwritten {
+  font-family: var(--font-handwritten), cursive;
+}
+
+/* Premium card with solid border and solid drop shadow inspired by tano.ai */
+.tano-card {
+  background-color: var(--color-card);
+  border: 2.5px solid var(--color-card-border-solid);
+  border-radius: 1.25rem;
+  box-shadow: 6px 6px 0px 0px var(--color-card-shadow-solid);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.15s ease;
+}
+
+.tano-card:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0px 0px var(--color-card-shadow-solid);
+}
+
+.tano-card:active {
+  transform: translate(5px, 5px);
+  box-shadow: 1px 1px 0px 0px var(--color-card-shadow-solid);
+}
+
+/* Accent highlight badges */
+.tano-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-secondary);
+  transition: all 0.3s ease;
+}
+
+.tano-pill:hover {
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+  background-color: var(--color-card);
+}
+
+/* Cozy Card Variations */
+.card-amber {
+  background-color: var(--color-card-amber-bg) !important;
+  border-color: var(--color-card-amber-border) !important;
+}
+.card-teal {
+  background-color: var(--color-card-teal-bg) !important;
+  border-color: var(--color-card-teal-border) !important;
+}
+.card-sage {
+  background-color: var(--color-card-sage-bg) !important;
+  border-color: var(--color-card-sage-border) !important;
+}
+.card-rust {
+  background-color: var(--color-card-rust-bg) !important;
+  border-color: var(--color-card-rust-border) !important;
+}
+
+/* Maintain high readability inside vibrant neo-brutalist blocks in Light Mode */
+[data-theme="light"] .card-amber,
+[data-theme="light"] .card-teal,
+[data-theme="light"] .card-sage,
+[data-theme="light"] .card-rust {
+  color: #000000 !important;
+}
+[data-theme="light"] .card-amber h3,
+[data-theme="light"] .card-teal h3,
+[data-theme="light"] .card-sage h3,
+[data-theme="light"] .card-rust h3,
+[data-theme="light"] .card-amber h4,
+[data-theme="light"] .card-teal h4,
+[data-theme="light"] .card-sage h4,
+[data-theme="light"] .card-rust h4 {
+  color: #000000 !important;
+}
+[data-theme="light"] .card-amber p,
+[data-theme="light"] .card-teal p,
+[data-theme="light"] .card-sage p,
+[data-theme="light"] .card-rust p,
+[data-theme="light"] .card-amber li,
+[data-theme="light"] .card-teal li,
+[data-theme="light"] .card-sage li,
+[data-theme="light"] .card-rust li {
+  color: #1C1815 !important;
+}
+[data-theme="light"] .card-amber a,
+[data-theme="light"] .card-teal a,
+[data-theme="light"] .card-sage a,
+[data-theme="light"] .card-rust a {
+  color: #000000 !important;
 }
